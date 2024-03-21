@@ -15,7 +15,7 @@ use App\Http\Controllers\JoggingController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
