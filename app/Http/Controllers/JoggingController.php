@@ -12,6 +12,12 @@ use App\Models\Spot_lists;
 class JoggingController extends Controller
 {
     // ジョギングデータ表示
+    public function index(){
+        // $spots = Spots::all();
+        // $Jogs = Jogs::all();
+        // return view('jogging.jogging_add',['spots'=>$spots]);
+        return view('jogging.jogging_list');
+    }
 
     // ジョギングデータ登録
     public function jogging_add(){

@@ -20,14 +20,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 // ジョギング
 Route::controller(JoggingController::class)->group(function(){
+    Route::get('home','index');
     Route::get('jogging/add','jogging_add');
     Route::post('jogging/add','jogging_create');
 });
