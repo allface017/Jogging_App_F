@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('users_id');
             $table->dateTime('date');
             $table->integer('distance');
-            $table->integer('time');
+            $table->time('time');
             $table->string('course')->nullable();
             $table->boolean('location')->default(false);
             $table->timestamps();
