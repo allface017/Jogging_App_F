@@ -19,6 +19,8 @@ class TargetTableSeeder extends Seeder
             'users_id' => 1, 
             'target_distance' => 2.3, 
             'reward' => "焼肉",
+            'achieveflg' => false,
+            'deleteflg' => false,
         ]);
     }
 }
