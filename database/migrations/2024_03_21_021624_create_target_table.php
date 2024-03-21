@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('target', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('users_id');
-            $table->float('target_distance',3,2);
+            $table->float('target_distance',8,2);
             $table->string('reward');
+            $table->boolean('achieveflg')->default(false);
+            $table->boolean('deleteflg')->default(false);
             //外部キー
             $table->foreign('users_id')->references('id')->on('users');
         });
