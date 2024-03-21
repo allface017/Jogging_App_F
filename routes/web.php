@@ -28,6 +28,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // ジョギング
 Route::controller(JoggingController::class)->group(function(){
-    Route::get('jogging','index');
     Route::get('jogging/add','jogging_add');
+    Route::post('jogging/add','jogging_create');
 });
