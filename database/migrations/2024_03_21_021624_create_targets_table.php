@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jogs', function (Blueprint $table) {
+        Schema::create('targets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('users_id');
-            $table->dateTime('date');
-            $table->float('distance',3,2);
-            $table->time('time');
-            $table->string('course')->nullable();
-            $table->boolean('location')->default(false);
+            $table->float('target_distance',8,2);
+            $table->string('reward');
             $table->timestamps();
+            $table->boolean('achieveflg')->default(false);
             $table->boolean('deleteflg')->default(false);
-            //外部キー制約
+            //外部キー
             $table->foreign('users_id')->references('id')->on('users');
         });
     }
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jogs');
+        Schema::dropIfExists('target');
     }
 };
