@@ -37,7 +37,6 @@ class JoggingController extends Controller
         return view('jogging.jogging_list',['data'=>$data,'spot_list'=>$spot_list]);
         // return view('jogging.jogging_list');
     }
-
     // ジョギングデータ登録
     public function jogging_add(){
         $spots = Spots::all();
@@ -71,6 +70,23 @@ class JoggingController extends Controller
         }
         return redirect('/jogging');
     }
+    //ジョギングデータ詳細
+    public function jogging_Details(Request $request){
+        $jogs_id = $request->jogs_id;
+        $users_id = Auth::id();
+        $jogs = Jogs::where([['users_id',(int)$users_id],['jogs_id',$jogs_id],['deleteflg',0]])->get();
+        $spot_list = Spot_lists::with('spots')->where('jogs_id',$jogs_id)->get();
+        $items = [
+            'date'=>$jogs->date,
+            'distance'=>$jogs->distance,
+            'time'=>$jogs->time,
+            'course'=>$jogs->course,
+            'location'=>$jogs->location,
+        ];
+        return view('jogging.target_sett',['items',$items,'spot_list',$spot_list]);
+
+
+    } 
     //目標設定表示
     public function target_index(){
         $user = Auth::id();
@@ -89,6 +105,7 @@ class JoggingController extends Controller
         return view('jogging.target_sett',['total' => $total_distance,'target' =>$target,'target_list'=>$target_list]);
 
     }
+
     //目的追加
     public function target_add(Request $request){
         $target = new Targets;
