@@ -15,8 +15,9 @@ class JoggingController extends Controller
 
     // ジョギングデータ登録
     public function jogging_add(){
-        $spots = Spots::all();
-        return view('jogging.jogging_add',['spots'=>$spots]);
+        // $spots = Spots::all();
+        // return view('jogging.jogging_add',['spots'=>$spots]);
+        return view('jogging.jogging_add');
     }
     public function jogging_create(Request $request){
         $jogs = new Jogs;
