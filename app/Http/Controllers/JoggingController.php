@@ -14,13 +14,12 @@ class JoggingController extends Controller
     // ジョギングデータ表示
     public function index(){
         $user = Auth::id();
-        // $spots = Spots::all();
+        $spots = Spots::all();
         
         $jogs = Jogs::where([['users_id',(int)$user],['deleteflg',0]])->get();
         $data = array();
         foreach($jogs as $jog){
-            // $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
-            $spot_list = Spot_lists::with('spots')->where('jogs_id',$jog->id)->get();
+            $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
             $items = [
                 'id'=>$jog->id,
                 'date'=>$jog->date,
@@ -33,8 +32,7 @@ class JoggingController extends Controller
             array_push($data,$items);
         }
         
-        return view('jogging.jogging_list',['data'=>$data,'spot_list'=>$spot_list]);
-        // return view('jogging.jogging_list');
+        return view('jogging.jogging_list',['jogs'=>$data,'spots'=>$spots]);
     }
 
     // ジョギングデータ登録
