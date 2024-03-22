@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Spots;
 use App\Models\Jogs;
 use App\Models\Spot_lists;
+use App\Models\Targets;
 
 class JoggingController extends Controller
 {
@@ -51,5 +52,27 @@ class JoggingController extends Controller
             }
         }
         return redirect('/jogging');
+    }
+    //目標設定表示
+    public function target_index(){
+        $user = Auth::id();
+        $total_distance = Jogs::where('users_id',$user)->sum('distance');
+        $target = Targets::where('users_id',$user)->where('achieveflg',false)->where('deleteflg',false)->first();
+        $target_list = Targets::where('users_id',$user)->where('deleteflg',false)->get();
+
+        return view('jogging.target_sett',['total' => $total_distance,'tagert' =>$target,'target_list'=>$target_list]);
+
+    }
+    //目的追加
+    public function target_add(Request $request){
+        $target = new Targets;
+        $target->users_id = Auth::id();
+        $target->target_distance = $request->distance;
+        $target->reward = $request->reward;
+        $target->deleteflg = false;
+        $target->achieveflg = false;
+        $target->save();
+        
+        return redirect('/jogging/target');
     }
 }
