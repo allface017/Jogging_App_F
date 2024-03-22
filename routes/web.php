@@ -26,5 +26,5 @@ Route::controller(JoggingController::class)->group(function(){
     Route::get('jogging/add','jogging_add');
     Route::post('jogging/add','jogging_create');
     Route::get('jogging/target','target_index');
-    Route::post('jogging/target','target_add'); 
+    Route::post('jogging/target','target_add')->name('jogging.target_add');; 
 });

@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class TargetTableSeeder extends Seeder
+class TargetsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class TargetTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('target')->insert([    
+        DB::table('targets')->insert([    
             'users_id' => 1, 
             'target_distance' => 2.3, 
             'reward' => "焼肉",
