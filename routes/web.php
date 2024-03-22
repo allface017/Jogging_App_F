@@ -15,19 +15,16 @@ use App\Http\Controllers\JoggingController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 // ジョギング
 Route::controller(JoggingController::class)->group(function(){
+    Route::get('home','index');
     Route::get('jogging/add','jogging_add');
     Route::post('jogging/add','jogging_create');
+    Route::get('jogging/target','target_index');
+    Route::post('jogging/target','target_add')->name('jogging.target_add');; 
 });

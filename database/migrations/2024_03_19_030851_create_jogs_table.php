@@ -13,16 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('jogs', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->unsignedBigInteger('users_id');
+            $table->dateTime('date');
+            $table->float('distance',3,2);
+            $table->time('time');
+            $table->string('course')->nullable();
+            $table->boolean('location')->default(false);
             $table->timestamps();
-            $table->boolean('admin')->default(false);
-            $table->boolean('public')->default(false);
             $table->boolean('deleteflg')->default(false);
+            //外部キー制約
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 
@@ -33,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('jogs');
     }
 };
