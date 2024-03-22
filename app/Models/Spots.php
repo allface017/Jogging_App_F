@@ -11,9 +11,7 @@ class Spots extends Model
     protected $guarded = ['id'];
 
     public function spot_lists(){
-        return $this->hasMany('App\Models\Spot_lists');
+        return $this->belongsTo('App\Models\Spot_lists');
     }
-    // public function spot_lists(){
-    //     return $this->belongsTo(Spot_lists::class, 'post_number');
-    // }
+  
 }

@@ -9,4 +9,9 @@ class Jogs extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    
+    public function spot_lists(){
+        return $this->hasMany('App\Models\Spot_lists');
+    }
+   
 }
