@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('target', function (Blueprint $table) {
+        Schema::create('targets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('users_id');
             $table->float('target_distance',8,2);
             $table->string('reward');
+            $table->timestamps();
             $table->boolean('achieveflg')->default(false);
             $table->boolean('deleteflg')->default(false);
             //外部キー
