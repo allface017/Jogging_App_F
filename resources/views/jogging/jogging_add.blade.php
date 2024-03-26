@@ -8,7 +8,7 @@
 
 
 @section('content')
-<div class="form">
+<form action="" method="post" class="form">
 
 
 
@@ -132,11 +132,10 @@
         </div>
 
 
-        <button type="submit" class="登録">
-            <strong>登録</strong>
-        </button>
+        <input type="submit" class="登録" value="登録">
+        
 
-    </div>
+    </form>
 
 @endsection
 
