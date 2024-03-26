@@ -80,7 +80,7 @@ class JoggingController extends Controller
                 $spots->save();
             }
         }
-        return redirect('/jogging');
+        return redirect('/home');
     }
     //ジョギングデータ詳細
     public function jogging_Details(Request $request){
@@ -99,6 +99,60 @@ class JoggingController extends Controller
 
 
     } 
+    // ジョギングデータ編集
+    public function jogging_edit(Request $request){
+        $user = Auth::id();
+        $spots = Spots::all();
+        
+        $jogs = Jogs::where([['users_id',(int)$user],['deleteflg',0]])->get();
+        $data = array();
+        foreach($jogs as $jog){
+            $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
+            $items = [
+                'id'=>$jog->id,
+                'date'=>$jog->date,
+                'distance'=>$jog->distance,
+                'time'=>$jog->time,
+                'course'=>$jog->course,
+                'location'=>$jog->location,
+                'spot'=>$spot_list,
+            ];
+            array_push($data,$items);
+        }
+        foreach($jogs as $jog){
+            // $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
+            $spot_list = Spot_lists::with('spots')->where('jogs_id',$jog->id)->get();
+            $items = [
+                'id'=>$jog->id,
+                'date'=>$jog->date,
+                'distance'=>$jog->distance,
+                'time'=>$jog->time,
+                'course'=>$jog->course,
+                'location'=>$jog->location,
+                'spot'=>$spot_list,
+            ];
+            array_push($data,$items);
+        }
+        return view('jogging.jogging_edit',['jogs'=>$data,'spots'=>$spots]);
+    }
+    public function jogging_update(Request $request){
+        if($request->file('image') == null){
+            $items = Jogs::find($request->id);
+            $image_path = $items->image;
+        }else{
+            $file_name = $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/img',$file_name);
+            $image_path = '/storage/img/'.$file_name;//画像のパスを作成
+        }
+        $jogs = Jogs::find($request->id);
+        $form = $request->all();
+        $form['image'] = $image_path;
+        unset($form['_token']);
+        $jogs->fill($form)->save();
+        return redirect('/home');
+    }
+
+
     //目標設定表示
     public function target_index(){
         $user = Auth::id();
