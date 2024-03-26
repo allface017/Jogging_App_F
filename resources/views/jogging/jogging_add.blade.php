@@ -4,13 +4,17 @@
 @section('title','top')
 
 @section('header')
-
+<style>
+    .form{
+        margin:100px 0;
+    }
+</style>
 @endsection
 
 
 @section('content')
 
-<form action="/jogging/add" method="post" class="form">
+<form action="/jogging/add" method="post" class="form" enctype="multipart/form-data">
     @csrf
     <div class="日時">
         <label for="nitizi"><strong class="fo-si-32">日時</strong></label><br>
@@ -24,7 +28,7 @@
 
     <div class="距離">
         <label for="kyori" ><strong class="fo-si-32">距離(km)</strong></label><br>
-        <input id="kyori" type="number"  name="distance" value="{{old('distance')}}" required>
+        <input id="kyori" type="number"  name="distance" value="{{old('distance')}}" step="0.01" required>
         @error('kyori')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -77,7 +81,7 @@
             <li>スポットA</li>
         </ul> -->
         @foreach($spots as $spot)
-            <label><input type="checkbox" name="spot" id="{{$spot->id}}">{{$spot->name}}</label>
+            <label><input type="checkbox" name="spot[]" id="{{$spot->id}}" value="{{$spot->id}}">{{$spot->name}}</label>
         @endforeach
 
         <p>検索したいキーワードを入力してください。</p>

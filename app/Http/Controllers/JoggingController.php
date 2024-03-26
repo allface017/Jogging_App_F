@@ -66,29 +66,36 @@ class JoggingController extends Controller
         //     'ss' => 'numeric|betwwen:0,59',
         // ];
         // $this->validate($request,$validate_rule);
-        unset($form['_token']);
+        
         $file_name = $request->file('jogging')->getClientOriginalName();
         $request->file('jogging')->storeAs('public/img',$file_name);
         $image_path = '/storage/img/'.$file_name;//画像のパスを作成
        
-        $time = $form['hh'].':'.$form['mm'].':'.$form['ss'];
+        $time = $request->hh.':'.$request->mm.':'.$request->ss;
         $user = Auth::id();
-        $form['delete_flg'] = 0;
         $form = [
-            'user_id' => (int)$user,
+            'users_id' => (int)$user,
             'date' => $request-> date,
             'distance' => $request-> distance,
             'time' => $time,
             'course' => $image_path,
             'delete_flg' => 0,
         ];
-        $jogs->fill($form)->save();
+        // $jogs->fill($form)->save();
 
         $jog_id = Jogs::orderBy('id','desc')->first();
-        foreach($request->spot as $spot){
+        if(is_array($request->spot)){
+            foreach($request->spot as $spot){
+                $spot_date = [
+                    'jogs_id' => $jog_id,
+                    'spots_id' => $request->spot,
+                ];
+                $spot_lists->fill($spot_date)->save();
+            }
+        }else{
             $spot_date = [
-                'jogs_id' => $jog_id,
-                'spots_id' => $spot,
+                'jogs_id' => $jog_id->id,
+                'spots_id' => $request->spot,
             ];
             $spot_lists->fill($spot_date)->save();
         }
@@ -103,6 +110,7 @@ class JoggingController extends Controller
             $spots->fill($request->newspot)->save();
 
         }
+        unset($request['_token']);
         return redirect('/jogging');
     }
 
