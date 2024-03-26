@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 
+
 @section('title','top')
 
 @section('header')
@@ -8,6 +9,7 @@
 
 
 @section('content')
+
 <form action="" method="post" class="form">
 
 
@@ -77,10 +79,10 @@
 
                 <label for="in" class="switch-in ">内</label>
 
+
             </div>
 
         </div>
-
 
         <div class="ジョギングコースの画像の添付">
             <label for="jogging" ><strong class="fo-si-32">ジョギングコースの画像の添付</strong></label><br>
@@ -135,6 +137,7 @@
         
 
     </form>
+
 
 @endsection
 
