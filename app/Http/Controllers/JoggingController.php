@@ -140,7 +140,7 @@ class JoggingController extends Controller
         $target_list = Targets::where('users_id',$user)->where('deleteflg',false)->get();   
 
         return view('jogging.target_sett',['total' => $total_distance,'target' =>$target,'target_list'=>$target_list]);
-
+        
     }
 
     //目的追加
@@ -173,4 +173,99 @@ class JoggingController extends Controller
             $target->save();
         }
     }
+    //スポット編集画面へ
+    public function spot_add(){
+        $spots = Spots::all();
+        // 各スポットごとにそのスポットがスポットリストに登録されている回数をカウント
+        $spotCounts = [];
+        foreach ($spots as $spot) {
+            $count = Spot_lists::where('spots_id', $spot->id)->count();
+            $spotCounts[$spot->id] = $count;
+        }
+        return view('jogging.spot_edit',['spots'=>$spots,'spotCounts' => $spotCounts,'key_name' => '','add_message' => '','edit_message' => '']);
+    }
+    //スポット追加
+    public function spot_create(Request $request) {
+        
+        $spots = new spots;
+        $form = $request->all();
+            // 同じ名前のスポットが存在するかどうかをチェック
+        $existingSpot = Spots::where('name', $form['name'])->first();
+        if ($existingSpot) {
+                // 同じ名前のスポットがスポットリストに存在する場合は、メッセージを表示して処理を中断
+                $add_message = "同じ名前のスポットが既に存在し、スポットリストに登録されています。";
+                $spots = Spots::all();  
+                $spotCounts = [];
+                foreach ($spots as $spot) {
+                    $count = Spot_lists::where('spots_id', $spot->id)->count();
+                    $spotCounts[$spot->id] = $count;
+                }
+                
+                return view('jogging.spot_edit',['spots'=>$spots,'spotCounts' => $spotCounts,'add_message' => $add_message,'edit_message' => '','key_name' => '']);
+            }
+        
+        $spots->name = $form['name']; 
+
+        // スポットを保存
+        $spots->save();
+
+        $add_message = $spots->name."を追加しました。";
+
+        $spots = Spots::all();
+
+        // 各スポットごとにそのスポットがスポットリストに登録されている回数をカウント
+        $spotCounts = [];
+        foreach ($spots as $spot) {
+            $count = Spot_lists::where('spots_id', $spot->id)->count();
+            $spotCounts[$spot->id] = $count;
+        }
+
+        return view('jogging.spot_edit',['spots'=>$spots,'spotCounts' => $spotCounts,'add_message' => $add_message,'edit_message' => '','key_name' => '']);
+    }
+    //スポット編集
+    public function spot_edit(Request $request) {
+            // リクエストからスポットのIDと新しい名前を取得
+        $spotId = $request->input('id');
+        $newName = $request->input('name');
+
+        // スポットのIDを使用してスポットを取得
+        $spot = Spots::find($spotId);
+
+        // スポットが見つかった場合は名前を更新
+        if ($spot) {
+            $edit_message = $spot->name."を".$newName."に変更しました。";
+            $spot->name = $newName;
+            $spot->save(); // スポットを保存
+        }
+
+        $spots = Spots::all();
+
+        // 各スポットごとにそのスポットがスポットリストに登録されている回数をカウント
+        $spotCounts = [];
+        foreach ($spots as $spot) {
+            $count = Spot_lists::where('spots_id', $spot->id)->count();
+            $spotCounts[$spot->id] = $count;
+        }
+
+        return view('jogging.spot_edit',['spots'=>$spots,'spotCounts' => $spotCounts,'add_message' => '','edit_message' => $edit_message,'key_name' => '']);
+    }
+    //スポット検索
+    public function spot_serach(Request $request){
+
+        $key_name = $request->input('key_name');
+
+        // キーワードを含むスポットを検索
+        $spots = Spots::where('name', 'like', '%' . $key_name . '%')->get();
+
+        // 各スポットごとにそのスポットがスポットリストに登録されている回数をカウント
+        $spotCounts = [];
+        foreach ($spots as $spot) {
+            $count = Spot_lists::where('spots_id', $spot->id)->count();
+            $spotCounts[$spot->id] = $count;
+        }
+
+        // 検索結果をビューに渡して表示
+        return view('jogging.spot_edit', ['spots' => $spots,'spotCounts' => $spotCounts,'key_name' => $key_name,'add_message' => '','edit_message' => '',]);
+    }
+
 }

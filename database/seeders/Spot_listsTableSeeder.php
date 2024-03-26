@@ -18,6 +18,8 @@ class Spot_listsTableSeeder extends Seeder
         DB::table('spot_lists')->insert([
             'jogs_id' => 1, 
             'spots_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }
