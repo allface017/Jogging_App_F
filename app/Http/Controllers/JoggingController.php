@@ -33,8 +33,8 @@ class JoggingController extends Controller
             array_push($data,$items);
         }
             foreach($jogs as $jog){
-                // $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
-                $spot_list = Spot_lists::with('spots')->where('jogs_id',$jog->id)->get();
+                $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
+                // $spot_list = Spot_lists::with('spots')->where('jogs_id',$jog->id)->get();
                 $items = [
                     'id'=>$jog->id,
                     'date'=>$jog->date,
