@@ -82,7 +82,6 @@
         </div>
 
 
-        <br>
         <div class="ジョギングコースの画像の添付">
             <label for="jogging" ><strong class="fo-si-32">ジョギングコースの画像の添付</strong></label><br>
 
