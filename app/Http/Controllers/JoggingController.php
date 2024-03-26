@@ -51,35 +51,57 @@ class JoggingController extends Controller
     }
     // ジョギングデータ登録
     public function jogging_add(){
-        // $spots = Spots::all();
+        $spots = Spots::all();
         // return view('jogging.jogging_add',['spots'=>$spots]);
-        return view('jogging.jogging_add');
+        return view('jogging.jogging_add',['spots'=>$spots,]);
     }
     public function jogging_create(Request $request){
         $jogs = new Jogs;
         $spots = new spots;
-        $form = $request->all();
+        $spot_lists = new Spot_lists;
+        // $form = $request->all();
+        // $validate_rule = [
+        //     'hh' => 'numeric|betwwen:0,23',
+        //     'mm' => 'numeric|betwwen:0,59',
+        //     'ss' => 'numeric|betwwen:0,59',
+        // ];
+        // $this->validate($request,$validate_rule);
         unset($form['_token']);
-        $file_name = $request->file('image')->getClientOriginalName();
-        $request->file('image')->storeAs('public/img',$file_name);
+        $file_name = $request->file('jogging')->getClientOriginalName();
+        $request->file('jogging')->storeAs('public/img',$file_name);
         $image_path = '/storage/img/'.$file_name;//画像のパスを作成
-        
-
-        $form['course'] = $image_path;
+       
+        $time = $form['hh'].':'.$form['mm'].':'.$form['ss'];
         $user = Auth::id();
-        $form['user_id'] = (int)$user;
         $form['delete_flg'] = 0;
+        $form = [
+            'user_id' => (int)$user,
+            'date' => $request-> date,
+            'distance' => $request-> distance,
+            'time' => $time,
+            'course' => $image_path,
+            'delete_flg' => 0,
+        ];
         $jogs->fill($form)->save();
 
         $jog_id = Jogs::orderBy('id','desc')->first();
+        foreach($request->spot as $spot){
+            $spot_date = [
+                'jogs_id' => $jog_id,
+                'spots_id' => $spot,
+            ];
+            $spot_lists->fill($spot_date)->save();
+        }
         // スポットの設定
-        if($request->spots() != null || $request->newspots() != null){
-            foreach($request->newspots() as $spot){
-                $spots->jogs_id = $jog_id;
-                // スポットがidで渡されていた場合
-                $spots->spots_id = $spot;
-                $spots->save();
-            }
+        if($request->newspot != null){
+            // foreach($request->newspots as $spot){
+            //     $spots->jogs_id = $jog_id;
+            //     // スポットがidで渡されていた場合
+            //     $spots->spots_id = $spot;
+            //     $spots->save();
+            // }
+            $spots->fill($request->newspot)->save();
+
         }
         return redirect('/jogging');
     }
