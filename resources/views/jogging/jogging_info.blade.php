@@ -15,15 +15,15 @@
         <div class="detail-img">
             <img src="#">
         </div>
-        <h3 class="detail-date">2024/03/24</h3>
+        <p class="detail-date">2024/03/24</p>
         <div class="ditail-data flex">
             <div class="flex">
-                <h4>距離</h4>
-                <h5>1112.67km</h5>
+                <p>距離</p>
+                <p>1112.67km</p>
             </div>
             <div class="flex">
-                <h4>運動時間</h4>
-                <h5>1101:23:45</h5>
+                <p>運動時間</p>
+                <p>1101:23:45</p>
             </div>
         </div>
         <div class="detail-place">
@@ -32,7 +32,7 @@
             <div class="date-icon">
                 <span class="material-symbols-outlined">forest</span>
             </div>
-                <h5>外</h5>
+                <p>外</p>
             </div>
         </div>
         <div class="detail-spot">
@@ -44,6 +44,7 @@
         </div>
     </div>
     <a href="#" class="return">戻る</a>
+
      
 @endsection
 

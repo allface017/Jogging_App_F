@@ -12,12 +12,11 @@
 @section('content')
     <div class="goal">
         <div class="goal-value flex">
-            <p>次の目標まであと</p>
-            <h3>12.3km</h3>
+            <p>次の目標まであと<span>12.3km</span></p>
         </div>
         <div class="gauge-value flex">
-            <h2>50km</h2>
-            <h2>100km</h2>
+            <p>50km</p>
+            <p>100km</p>
         </div>
         <div class="gauge-bar flex">
             <div class="left-circle"></div>
@@ -48,19 +47,19 @@
                 <span class="material-symbols-outlined">page_info</span>
                 <p>絞り込み</p>
             </a>
-            <a href="#" id="registration-order"><p>登録順</p></a>
-            <a href="#" id=""><P>昇順</P></a>
+            <a href="#" id="registration-order">登録順</a>
+            <a href="#" id="">昇順</a>
         </div>
 
         <a href="#" id="graph-link">グラフ表示へ</a>
 
         <div class="score-div flex">
             <div class="total-score flex">
-                <h4>総合</h4>
+                <p>総合</p>
                 <div class="score-data flex">
-                    <div>
-                        <h5>50.4km</h5>
-                        <h5>1:40:00</h5>
+                    <div class="score-data-value">
+                        <p>50.4km</p>
+                        <p>1:40:00</p>
                     </div>
                     <div>
                         <p>(距離)</p>
@@ -69,11 +68,11 @@
                 </div>
             </div>
             <div class="month-score flex">
-                <h4>今月</h4>
+                <p>今月</p>
                 <div class="score-data flex">
-                    <div>
-                        <h5>1110.4km</h5>
-                        <h5>113:40:00</h5>
+                    <div  class="score-data-value">
+                        <p>1110.4km</p>
+                        <p>113:40:00</p>
                     </div>
                     <div>
                         <p>(距離)</p>
@@ -87,15 +86,15 @@
         <ul>
             <li class="flex">
                 <div class="date-div">
-                    <h3>1/1</h3>
+                    <p>1/1</p>
                     <div class="date-icon">
                          <span class="material-symbols-outlined">forest</span>
                     </div>
                 </div>
                 <div class="record-div">
                     <div class="flex">
-                        <div class="flex"><h5>1110.4km</h5> <p>(距離)</p></div>
-                        <div class="flex"><h5>113:40:00</h5><p>(運動時間)</p></div>
+                        <div class="flex"><p>1110.4km</p> <p>(距離)</p></div>
+                        <div class="flex"><p>113:40:00</p><p>(運動時間)</p></div>
                     </div>
                     <ul class="spot-ul flex">
                         <li class="spot-icon">  <span class="material-symbols-outlined">location_on</span></li>
@@ -109,6 +108,10 @@
     </div>
     </div>
 
+
+
+
+  
     
 @endsection
 

@@ -136,7 +136,7 @@
     font-size: 10px;
     font-weight:600;
 }
-.goal-value h3{
+.goal-value span{
     font-size: 12px;
     font-weight: bold;
     margin-left: 5px;
@@ -154,7 +154,7 @@
     justify-content:space-between;
     height: 20px;
 }
-.gauge-value h2{
+.gauge-value p{
 font-size: 12px;
 font-weight: bold;
 position: relative;
@@ -257,10 +257,10 @@ bottom: 9px;
     margin-right: 10px;
     display: block;
 }
-.search-menu p{
+.search-menu a{
     font-size: 10px;
     margin: 0;
-    margin-top: 1px;
+    padding-top: 1px;
     font-weight: bold;
 }
 
@@ -290,7 +290,7 @@ bottom: 9px;
 .total-score + .month-score{
     margin-left: 20px;
 }
-.score-div h4{
+.score-div p:not(.score-data p){
     height: 40px;
     width: 40px;
     background-color: #000000;
@@ -308,16 +308,18 @@ bottom: 9px;
     position: relative;
 }
 
-.score-data h5{
+.score-data-value p{
     margin: 0;
-    margin-top: 0.5px;
     font-size: 12px;
    font-weight:bold;
+   position: relative;
+   bottom: 2px;
 }    
-.score-data h5 + h5{
-    margin-top: 2px;
-}   
-.score-data p{
+.score-data-value p:last-child{
+    bottom: 3.5px;
+}
+  
+.score-data p:not(.score-data-value p){
     margin: 0;
     margin-left: 2px;
     font-size: 10px;
@@ -350,10 +352,13 @@ bottom: 9px;
     width: 6%;
     margin-right: 5%;
 }
-.date-div h3{
+.date-div p{
     margin: 0;
     font-size: 14px;
     text-align: center;
+    position: relative;
+    bottom: 2px;
+    font-weight: bold;
 }
 
 .date-icon{
@@ -361,8 +366,7 @@ bottom: 9px;
     height: 30px;
     border-radius: 100%;
     background-color: #ffffff;
-    margin:  0 auto;
-    margin-top:5px;
+    margin:  0 auto;    
     position: relative;
 }
 .date-icon span{
@@ -395,14 +399,16 @@ bottom: 9px;
     margin-left: 20px;
 }
 
-.record-div h5{
+.record-div p:first-child{
     margin: 0;
     margin-top: 1.5px;
     font-size: 12px;
     font-weight:bold;
+    position: relative;
+    bottom: 1px;
 }
 
-.record-div p{
+.record-div p:last-child{
     margin: 0;
     margin-left: 1px;
     font-size: 12px;
@@ -500,26 +506,27 @@ bottom: 9px;
 }
 
 
-.ditail-data h4{
+.ditail-data div p:first-child{
     height: 35px;
     width: 50px;
     background-color: #000000;
     color: #ffffff;
     margin: 0;
-    padding-top: 11px;
+    padding-top: 9px;
     text-align: center;
     font-size: 12px;
     font-weight:lighter; 
 }
-.ditail-data h5{
+.ditail-data div p:last-child{
     margin: 0;
+    height: 35px;
     background-color: #D9D9D9;
     width:19vw;
     padding: 5px;
     position: relative;
     font-size: 12px;
     text-align: center;
-    padding-top: 11px;
+    padding-top: 9px;
     font-weight: bold;
 }
 .ditail-data div + div{
@@ -539,7 +546,7 @@ bottom: 9px;
     margin: 0;
     margin-bottom: 10px;
 }
-.detail-place h5{
+.detail-place p{
     font-size: 14px;
     margin: 0;
     font-weight: bold;
