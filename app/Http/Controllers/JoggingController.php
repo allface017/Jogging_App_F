@@ -51,8 +51,9 @@ class JoggingController extends Controller
     }
     // ジョギングデータ登録
     public function jogging_add(){
-        $spots = Spots::all();
-        return view('jogging.jogging_add',['spots'=>$spots]);
+        // $spots = Spots::all();
+        // return view('jogging.jogging_add',['spots'=>$spots]);
+        return view('jogging.jogging_add');
     }
     public function jogging_create(Request $request){
         $jogs = new Jogs;
@@ -82,6 +83,7 @@ class JoggingController extends Controller
         }
         return redirect('/jogging');
     }
+
     //ジョギングデータ詳細
     public function jogging_Details(Request $request){
         $jogs_id = $request->jogs_id;
@@ -99,6 +101,7 @@ class JoggingController extends Controller
 
 
     } 
+
     //目標設定表示
     public function target_index(){
         $user = Auth::id();
@@ -129,7 +132,7 @@ class JoggingController extends Controller
         $target->deleteflg = false;
         $target->achieveflg = false;
         $target->save();
-        
+
         return redirect('/jogging/target');
     }
 
@@ -148,7 +151,6 @@ class JoggingController extends Controller
             $target->save();
         }
     }
-
     //スポット編集画面へ
     public function spot_add(){
         $spots = Spots::all();
@@ -243,4 +245,5 @@ class JoggingController extends Controller
         // 検索結果をビューに渡して表示
         return view('jogging.spot_edit', ['spots' => $spots,'spotCounts' => $spotCounts,'key_name' => $key_name,'add_message' => '','edit_message' => '',]);
     }
+
 }
