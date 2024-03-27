@@ -8,6 +8,7 @@
     .form{
         margin:100px 0;
     }
+    
 </style>
 @endsection
 
@@ -77,11 +78,9 @@
     <div class="スポット">
         <label for="spot" ><strong class="fo-si-32">スポット</strong></label><br>
         <div>
-        <!-- <ul>
-            <li>スポットA</li>
-        </ul> -->
+        <p>選択したスポット：<span id="selectedValues"></span></p>
         @foreach($spots as $spot)
-            <label><input type="checkbox" name="spot[]" id="{{$spot->id}}" value="{{$spot->id}}">{{$spot->name}}</label>
+            <label><input type="checkbox" name="spots[]" value="{{$spot->name}}" id="check{{$spot->id}}" onchange="check()">{{$spot->name}}</label>
         @endforeach
 
         <p>検索したいキーワードを入力してください。</p>
@@ -106,7 +105,7 @@
         
     </form>
 
-
+    <script src="/js/add_checkbox.js"></script>
 @endsection
 
 @section('footer')
