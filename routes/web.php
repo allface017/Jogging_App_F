@@ -31,5 +31,7 @@ Route::controller(JoggingController::class)->group(function(){
     Route::post('jogging/spot','spot_create')->name('jogging.spot_create');
     Route::post('jogging/spot/serach', 'spot_serach')->name('jogging.spot_serach');
     Route::post('jogging/spot/edit','spot_edit')->name('jogging.spot_edit');
+    Route::get('jogging/Course_Select','course_select');
+    Route::post('jogging/course_serach','course_serach')->name('jogging.course_serach');
     
 });

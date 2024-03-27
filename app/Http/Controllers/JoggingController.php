@@ -245,5 +245,119 @@ class JoggingController extends Controller
         // 検索結果をビューに渡して表示
         return view('jogging.spot_edit', ['spots' => $spots,'spotCounts' => $spotCounts,'key_name' => $key_name,'add_message' => '','edit_message' => '',]);
     }
+    //おすすめコース表示
+    public function course_select(){
+        // ログインしているユーザーのIDを取得
+        $user_id = Auth::id();
 
+        // ログインユーザーのジョギングデータを取得
+        $jogs = Jogs::where('users_id', $user_id)->get();
+
+        // ランダムな件数を決定するための最大件数を設定
+        $max_random_count = 5;
+
+        // jogsの件数を取得
+        $total_jogs_count = $jogs->count();
+
+        // ランダムな件数を決定
+        $random_count = min($total_jogs_count, $max_random_count);
+        
+        // ログインユーザーのジョギングデータをランダムな件数取得
+        $jogs = Jogs::where('users_id', $user_id)->inRandomOrder()->limit($random_count)->get();
+
+        // スポットリストを取得
+        $spot_list = Spots::all();
+
+        // ジョギングデータに関連するスポットのIDを取得
+        $spots_ids = Spot_lists::whereIn('jogs_id', $jogs->pluck('id'))->pluck('spots_id')->toArray();
+
+        // スポットテーブルからジョギングデータに関連するスポットを取得
+        $spots = Spots::whereIn('id', $spots_ids)->get();
+
+        // ビューにデータを渡して表示
+        return view('jogging.jogging_recommendation', [
+            'spots_list' => $spot_list,
+            'jogging' => $jogs,
+            'spots' => $spots,
+            'message' => ''
+        ]);
+    }
+    //おすすめコース検索表示
+    public function course_serach(Request $request){
+        // フォームから送信された情報を取得
+        $form = $request->all();
+        
+        // ログインしているユーザーのIDを取得
+        $user_id = Auth::id();
+
+        // ジョギングデータを取得するクエリを作成
+        $jogs = Jogs::where('users_id', $user_id);
+
+        $message = "検索条件：";
+        // 最小距離の条件を追加
+        if (!empty($form['min_distance'])) {
+            // 最小距離を取得
+            $minDistance = $form['min_distance'];
+            $jogs->where('distance', '>=', $minDistance);
+            $message .= "最小距離: {$minDistance}km, ";
+        }
+        
+        // 最大距離の条件を追加
+        if (!empty($form['max_distance'])) {
+            // 最大距離を取得
+            $maxDistance = $form['max_distance'];
+            $jogs->where('distance', '<=', $maxDistance);
+            $message .= "最大距離: {$maxDistance}km, ";
+        }
+        
+        // 場所の条件を追加
+        if (!empty($form['location'])) {
+            // 場所の情報を取得
+            $location = $form['location'];
+            $jogs->where('location', $location);
+            $location = $form['location'] == "on" ? "外" : "内";
+            $message .= "場所: {$location}, ";
+        }
+        
+        // 選択されたスポットがあれば、それを含むジョギングデータを検索
+        if (!empty($form['spots'])) {
+            // スポットの情報を取得
+            $selected_spots = $form['spots'] ?? []; // チェックされたスポットのIDの配列を取得
+            $jogs->whereHas('spot_lists', function ($jogs) use ($selected_spots) {
+                $jogs->whereIn('spots_id', $selected_spots);
+            });
+            // 選択されたスポットのIDからスポット名を取得
+            $selected_spots_names = Spots::whereIn('id', $selected_spots)->pluck('name')->toArray();
+
+            $message .= "選択されたスポット: " . implode(',', $selected_spots_names) . ", ";
+        }
+        
+        // 最後のカンマを削除
+        $message = rtrim($message, ', ');
+
+        // 検索結果を取得
+        $jogs = $jogs->get();
+        
+        // スポットリストを取得
+        $spot_list = Spots::all();
+
+        // ジョギングデータに関連するスポットのIDを取得
+        $spots_ids = Spot_lists::whereIn('jogs_id', $jogs->pluck('id'))->pluck('spots_id')->toArray();
+
+        // スポットテーブルからジョギングデータに関連するスポットを取得
+        $spots = Spots::whereIn('id', $spots_ids)->get();
+
+        // ビューにデータを渡して表示
+        if ($jogs->isEmpty()) {
+            $message = '条件に一致するジョギングデータはありませんでした。';
+        } 
+        
+        // ビューにデータを渡して表示
+        return view('jogging.jogging_recommendation', [
+            'spots_list' => $spot_list,
+            'jogging' => $jogs,
+            'spots' => $spots,
+            'message' => $message,
+        ]);
+    }
 }
