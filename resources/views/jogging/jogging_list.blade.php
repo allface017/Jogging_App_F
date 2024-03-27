@@ -27,12 +27,12 @@
                 </div>
             <div class="right-circle"></div>
         </div>
-        <a href="#" id="goal-link">目標設定へ</a>
+        <a href="/jogging/target" id="goal-link">目標設定へ</a>
     </div>
 
     <div class="link-div flex">
         <a href ="/jogging/add">ジョギングデータ登録</a>
-        <a href ="#">おすすめコース</a>
+        <a href ="/jogging/Course_Select">おすすめコース</a>
     </div>
 
     <div class="list-div">
@@ -109,7 +109,6 @@
                     <img src="{{asset($jog['course'])}}" alt="jogging_img" class="list-img">
                 </li>
             @endforeach
-            <li></li>
         </ul>
     </div>
 </div>

@@ -28,7 +28,7 @@
             <nav>
             <ul class="menu">
                 <li>
-                    <a href="#">
+                    <a href="/home">
                         <span class="material-symbols-outlined">home</span>
                         <p>TOP</p>
                     </a>
@@ -40,19 +40,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/jogging/Course_Select">
                     <span class="material-symbols-outlined">star</span>
                         <p>おすすめ</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/jogging/spot">
                     <span class="material-symbols-outlined">location_on</span>
                         <p>スポット編集</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/logout">
                     <span class="material-symbols-outlined">logout</span>
                         <p>ログアウト</p>
                     </a>
@@ -68,19 +68,19 @@
             <div class="menu-content">
                 <ul>
                     <li>
-                        <a href="#">
+                        <a href="/home">
                         <span class="material-symbols-outlined">home</span>
                             <p>TOP</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/jogging/Course_Select">
                         <span class="material-symbols-outlined">star</span>
                             <p>おすすめ</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/jogging/add">
                         <span class="material-symbols-outlined">add</span>
                             <p id="jogging-date">ジョギングデータ登録</p>
                         </a>
@@ -94,13 +94,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/jogging/spot">
                         <span class="material-symbols-outlined">location_on</span>
                             <p>スポット</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/jogging/target">
                         <span class="material-symbols-outlined">golf_course</span>
                             <p>目標設定</p>
                         </a>
