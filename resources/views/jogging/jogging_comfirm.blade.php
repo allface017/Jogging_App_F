@@ -3,11 +3,7 @@
 @section('title','top')
 
 @section('header')
-<style>
-    .form{
-        margin:100px 0;
-    }
-</style>
+
 @endsection
 
 @section('content')
