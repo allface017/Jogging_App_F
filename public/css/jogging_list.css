@@ -711,3 +711,62 @@ bottom: 9px;
     width: 19%;
     height: 100px;
 }
+
+
+
+.graph-div{
+    padding:  0 5%;
+}
+.graph-div .score-div{
+    margin-top: 20px;
+}
+.graph-div .search-menu{
+    margin-top: 20px;
+}
+.graph-div ul{
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+}
+.graph-data{
+    width: 100%;
+    position: relative;
+    justify-content: flex-end;
+}
+.graph-data p{
+    font-size: 12px;
+    margin-bottom: 0;
+}
+.graph-data p:first-child{
+    font-weight: bold;
+}
+.graph-data p:not(.graph-data div p){
+    margin-right: 20%;
+    position: absolute;
+    left: 0;
+}
+.graph-data div p:last-child{
+    margin: 0;
+    margin-left: 2px;
+    font-size: 10px;
+    color: #868585;
+}   
+.graph-data div + div{
+    margin-left: 15px;
+}
+
+.graph{
+    width: 100%;
+    height: 250px;
+    border:  1px #000000 solid;
+}
+
+
+
+
+
+
+#japanese_people_chart{
+    height: 250px!important;
+    width: 95%!important;
+}
