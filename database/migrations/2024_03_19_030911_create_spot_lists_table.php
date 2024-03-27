@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('spot_lists', function (Blueprint $table) {
             $table->unsignedBigInteger('jogs_id');
             $table->unsignedBigInteger('spots_id');
+            $table->timestamps();
             //外部キー制約
             $table->foreign('jogs_id')->references('id')->on('jogs');
             $table->foreign('spots_id')->references('id')->on('spots');
