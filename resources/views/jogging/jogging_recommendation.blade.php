@@ -26,21 +26,20 @@
 
             <h3>場所</h3>
             <div class="recommendation-radio">
-                <input type="radio" name="" value="">外
-                <input type="radio" name="" value="">内
+                <label><input type="radio" name="" value="">外</label>
+                <label><input type="radio" name="" value="">内</label>
             </div>
            
             <h3>スポット</h3>
             <div class="recommendation-check">
-                <input type="checkbox" name="" value="">イオンモール盛岡南
-                <input type="checkbox" name="" value="">盛岡城跡公園
-                <input type="checkbox" name="" value="">盛岡子ども科学館
+                <label><input type="checkbox" name="" value="">イオンモール盛岡南</label>
+                <label><input type="checkbox" name="" value="">イオンモール盛岡南</label>
+                <label><input type="checkbox" name="" value="">イオンモール盛岡南</label>
+                <label><input type="checkbox" name="" value="">イオンモール盛岡南</label>
+                <label><input type="checkbox" name="" value="">イオンモール盛岡南</label>
+                <label><input type="checkbox" name="" value="">イオンモール盛岡南</label>
             </div>
-            <div class="recommendation-check">
-                <input type="checkbox" name="" value="">イオンモール盛岡南
-                <input type="checkbox" name="" value="">盛岡城跡公園
-                <input type="checkbox" name="" value="">盛岡子ども科学館
-            </div>
+         
 
             <input type="submit" name="送信" value="この条件で検索する">
         </form>
@@ -50,7 +49,7 @@
     <div class="search-result">
         <h2>おすすめコースはこちら</h2>
         <p>過去に走ったデータをもとに抽出しています</p>
-    </div>
+    
 
     <div class="list-data">
         <ul>
@@ -73,11 +72,12 @@
                 </div>
                 <div class="list-img"></div>
             </li>
-            <li></li>
         </ul>
         </div>
 
+
         <a href="#" class="return">戻る</a>
+        </div>
 
 @endsection
 

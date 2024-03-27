@@ -579,3 +579,135 @@ bottom: 9px;
 .spot-icon::after{
     content: ""!important;
 }
+
+
+
+
+.search-box{
+    margin-top: 15px;
+}
+
+.search-box,.search-result{
+    padding: 0 5%;
+}
+
+.search-box h2,.search-result h2{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.search-box form{
+    border: 1px solid #000000;
+    border-radius: 2%;
+    padding:10px;
+}
+
+.search-box h3{
+    font-size: 14px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #000000;
+    font-weight: bolder;
+}
+
+.min-bar ,.max-bar{
+    display: flex;
+    position: relative;
+    margin-bottom: 10px;
+}
+.min-bar p , .max-bar p{
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+}
+.min-bar input[type=range], .max-bar input[type=range]{
+    position: absolute;
+    left: 80px;
+    width: 75%;
+    height: 5px;
+    margin-top: 7px;
+}
+
+
+
+.recommendation-radio label{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.recommendation-radio input[type=radio]{
+    margin-right: 10px;
+    margin-top: 0px;
+    transform:scale(1.2);
+    position: relative;
+    top:2px;
+    accent-color: #000000;
+}
+
+.recommendation-radio label:last-child [type=radio]{
+    margin-left: 20px;
+}
+
+
+.recommendation-check{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}   
+.recommendation-check label{
+    display: block;
+}
+.recommendation-check input[type=checkbox]{
+    position: relative;
+    top: 3.5px;
+    margin-right: 3px;
+    accent-color: #000000;
+}
+.recommendation-check label{
+    font-size: 10px;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.search-box input[type=submit]{
+    display: block;
+    width: 55%;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 12px;
+    background-color: #D9D9D9;
+    border: none;
+    font-weight: bold;
+    padding: 2px 0;
+    border-radius: 100vh;   
+}
+
+
+.search-result h2{
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+.search-result p:not(ul p){
+    font-size: 10px;
+    color: #868585;
+    margin-left: 3px;
+}
+.search-result p:not(ul p)::before{
+    content: "※";
+    font-size: 6px;
+    font-weight: bold;
+    position: relative;
+    bottom: 1px;
+    right: 1px;
+}
+
+
+.search-result li:not(.spot-ul li){
+    height: 120px;
+}
+.search-result .spot-ul{
+    width: 75%;
+}
+.search-result .list-img{
+    width: 19%;
+    height: 100px;
+}
