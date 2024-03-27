@@ -26,5 +26,12 @@ Route::controller(JoggingController::class)->group(function(){
     Route::get('jogging/add','jogging_add');
     Route::post('jogging/add','jogging_create');
     Route::get('jogging/target','target_index');
-    Route::post('jogging/target','target_add')->name('jogging.target_add');; 
+    Route::post('jogging/target','target_add')->name('jogging.target_add');
+    Route::get('jogging/spot','spot_add');
+    Route::post('jogging/spot','spot_create')->name('jogging.spot_create');
+    Route::post('jogging/spot/serach', 'spot_serach')->name('jogging.spot_serach');
+    Route::post('jogging/spot/edit','spot_edit')->name('jogging.spot_edit');
+    Route::get('jogging/Course_Select','course_select');
+    Route::post('jogging/course_serach','course_serach')->name('jogging.course_serach');
+    
 });

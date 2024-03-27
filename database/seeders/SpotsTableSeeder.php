@@ -16,7 +16,9 @@ class SpotsTableSeeder extends Seeder
     public function run()
     {
         DB::table('spots')->insert([    
-            'name' => "盛岡駅"
+            'name' => "盛岡駅",
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }
