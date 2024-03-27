@@ -30,15 +30,12 @@
         <a href="#" id="goal-link">目標設定へ</a>
     </div>
 
-
     <div class="link-div flex">
-        <a href ="#">ジョギングデータ登録</a>
+        <a href ="/jogging/add">ジョギングデータ登録</a>
         <a href ="#">おすすめコース</a>
     </div>
 
-
     <div class="list-div">
-
         <div class="list-title">
             <h2>ジョギングデータ一覧</h2>
         </div>
@@ -59,7 +56,7 @@
                 <p>総合</p>
                 <div class="score-data flex">
                     <div class="score-data-value">
-                        <p>50.4km</p>
+                        <p>{{$all_sum}}km</p>
                         <p>1:40:00</p>
                     </div>
                     <div>
@@ -72,7 +69,7 @@
                 <p>今月</p>
                 <div class="score-data flex">
                     <div  class="score-data-value">
-                        <p>1110.4km</p>
+                        <p>{{$month_sum}}km</p>
                         <p>113:40:00</p>
                     </div>
                     <div>
@@ -85,35 +82,38 @@
 
         <div class="list-data">
         <ul>
-            <li class="flex">
-                <div class="date-div">
-                    <p>1/1</p>
-                    <div class="date-icon">
-                         <span class="material-symbols-outlined">forest</span>
+            @foreach($jogs as $jog)
+                <li class="flex">
+                    <div class="date-div">
+                        <p>{{$jog['date']}}</p>
+                        <div class="date-icon">
+                            <span class="material-symbols-outlined">forest</span>
+                        </div>
                     </div>
-                </div>
-                <div class="record-div">
-                    <div class="flex">
-                        <div class="flex"><p>1110.4km</p> <p>(距離)</p></div>
-                        <div class="flex"><p>113:40:00</p><p>(運動時間)</p></div>
+                    <div class="record-div">
+                        <div class="flex">
+                            <div class="flex"><p>{{$jog['distance']}}</p> <p>(距離)</p></div>
+                            <div class="flex"><p>{{$jog['time']}}</p><p>(運動時間)</p></div>
+                        </div>
+                        <ul class="spot-ul flex">
+                            <li class="spot-icon">  <span class="material-symbols-outlined">location_on</span></li>
+                            @foreach($jog['spot'] as $item_spot)
+                                @foreach($spots as $spot)
+                                    @if($item_spot['spots_id'] == $spot['id'])
+                                        <li>{{$spot['name']}}</li>
+                                    @endif
+                                @endforeach
+                            @endforeach
+                        </ul>
                     </div>
-                    <ul class="spot-ul flex">
-                        <li class="spot-icon">  <span class="material-symbols-outlined">location_on</span></li>
-                        <li>イオンモール盛岡南</li><li>盛岡市子ども科学館</li><li>盛岡城跡公園</li><li>盛岡城跡公園</li>
-                    </ul>
-                </div>
-                <div class="list-img"></div>
-            </li>
+                    <img src="{{asset($jog['course'])}}" alt="jogging_img" class="list-img">
+                </li>
+            @endforeach
             <li></li>
         </ul>
     </div>
-    </div>
+</div>
 
-
-
-
-  
-    
 @endsection
 
 @section('footer')

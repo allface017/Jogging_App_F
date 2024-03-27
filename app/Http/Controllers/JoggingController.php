@@ -19,35 +19,32 @@ class JoggingController extends Controller
         
         $jogs = Jogs::where([['users_id',(int)$user],['deleteflg',0]])->get();
         $data = array();
+        $all_sum = 0.0;
+        $all_sum_time = 0;
         foreach($jogs as $jog){
             $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
             $items = [
                 'id'=>$jog->id,
-                'date'=>$jog->date,
-                'distance'=>$jog->distance,
+                'date'=>date( "m/d", strtotime($jog->date)),
+                'distance'=>number_format($jog->distance,2),
                 'time'=>$jog->time,
                 'course'=>$jog->course,
                 'location'=>$jog->location,
                 'spot'=>$spot_list,
             ];
+            $all_sum += $jog->distance;
             array_push($data,$items);
         }
-            foreach($jogs as $jog){
-                $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
-                // $spot_list = Spot_lists::with('spots')->where('jogs_id',$jog->id)->get();
-                $items = [
-                    'id'=>$jog->id,
-                    'date'=>$jog->date,
-                    'distance'=>$jog->distance,
-                    'time'=>$jog->time,
-                    'course'=>$jog->course,
-                    'location'=>$jog->location,
-                    'spot'=>$spot_list,
-                ];
-                array_push($data,$items);
-            }
+        $today_y = now()->format('Y');
+        $today_m = now()->format('m');
+        $jogs_sum = Jogs::whereYear('date',$today_y)->whereMonth('date',$today_m)->where([['users_id',(int)$user],['deleteflg',0]])->get();
+        $month_sum = 0.0;
+        foreach($jogs_sum as $jog){
+            $month_sum += $jog->distance;
+        }
+        // dd($month_sum);
         
-        return view('jogging.jogging_list',['jogs'=>$data,'spots'=>$spots]);
+        return view('jogging.jogging_list',['jogs'=>$data,'spots'=>$spots,'all_sum'=>$all_sum,'month_sum'=>$month_sum]);
     }
     // ジョギングデータ登録
     public function jogging_add(){
