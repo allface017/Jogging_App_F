@@ -348,6 +348,10 @@ bottom: 9px;
 .list-data li+li:not(.spot-ul li, .detail-spot li){
     margin-top: 10px;
 }
+.list-data a{
+    width: 100%;
+    color: #000;
+}
 .date-div{
     width: 6%;
     margin-right: 5%;
@@ -874,4 +878,3 @@ bottom: 9px;
     font-weight: bold;
     margin-bottom: 20px;
 }
-
