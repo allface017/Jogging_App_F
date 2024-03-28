@@ -3,7 +3,7 @@
 @section('title','top')
 
 @section('header')
-
+<link rel="stylesheet" href="/css/jogging_list.css">
 @endsection
 
 @section('content')
@@ -37,7 +37,7 @@
 
     <div class="jogging-img-com">
         <p class="fo-si-32">ジョギングコースの画像</p>
-        <img src="{{asset($data->course)}}" alt="ジョギングコースの画像" id="jogging-img-com">
+        <img src="{{asset($data->course)}}" alt="ジョギングコースの画像" id="jogging-img-com" width="100">
     </div>
 
     <div class="spot-com">

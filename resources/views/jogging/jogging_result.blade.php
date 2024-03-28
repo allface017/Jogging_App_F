@@ -85,25 +85,26 @@
         <div class="list-data">
         <ul>
             <li class="flex">
-                <div class="date-div">
-                    <p>1/1</p>
-                    <div class="date-icon">
-                         <span class="material-symbols-outlined">forest</span>
+                <a href="#" class="flex">
+                    <div class="date-div">
+                        <p>1/1</p>
+                        <div class="date-icon">
+                            <span class="material-symbols-outlined">forest</span>
+                        </div>
                     </div>
-                </div>
-                <div class="record-div">
-                    <div class="flex">
-                        <div class="flex"><p>1110.4km</p> <p>(距離)</p></div>
-                        <div class="flex"><p>113:40:00</p><p>(運動時間)</p></div>
+                    <div class="record-div">
+                        <div class="flex">
+                            <div class="flex"><p>1110.4km</p> <p>(距離)</p></div>
+                            <div class="flex"><p>113:40:00</p><p>(運動時間)</p></div>
+                        </div>
+                        <ul class="spot-ul flex">
+                            <li class="spot-icon">  <span class="material-symbols-outlined">location_on</span></li>
+                            <li>イオンモール盛岡南</li><li>盛岡市子ども科学館</li><li>盛岡城跡公園</li><li>盛岡城跡公園</li>
+                        </ul>
                     </div>
-                    <ul class="spot-ul flex">
-                        <li class="spot-icon">  <span class="material-symbols-outlined">location_on</span></li>
-                        <li>イオンモール盛岡南</li><li>盛岡市子ども科学館</li><li>盛岡城跡公園</li><li>盛岡城跡公園</li>
-                    </ul>
-                </div>
-                <div class="list-img"></div>
+                    <div class="list-img"></div>
+                </a>    
             </li>
-            <li></li>
         </ul>
     </div>
     </div>
