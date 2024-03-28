@@ -23,7 +23,7 @@
 
     <div class="kyori">
         <label for="kyori"><strong class="fo-si-32">距離(km)</strong></label><br>
-        <input id="kyori" type="text" name="kyori" required>
+        <input id="kyori" type="text" name="distance" required>
          @error('kyori')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -48,9 +48,9 @@
     <div class="space">
         <label for="place"><strong class="fo-si-32">運動場所</strong></label><br>
         <div class="radio-space">
-            <input type="radio" name="s2" id="out" value="外" checked="">
+            <input type="radio" name="location" id="out" value="外" checked="">
             <label for="out" class="switch-out ">外</label>
-            <input type="radio" name="s2" id="in" value="内">
+            <input type="radio" name="location" id="in" value="内">
             <label for="in" class="switch-in ">内</label>
         </div>
     </div>
