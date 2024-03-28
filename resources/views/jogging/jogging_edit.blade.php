@@ -17,30 +17,19 @@
 @endforeach
 <form action="" method="post" class="form">
 
-
-
 <div class="nitizi">
     <label for="nitizi"><strong class="fo-si-32">日時</strong></label><br>
-
-
     <input id="nitizi" type="date" name="date" value="{{$data->date}}" required>
-
     @error('date')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
     </span>
     @enderror
-
 </div>
-
-
 
 <div class="kyori">
     <label for="kyori"><strong class="fo-si-32">距離(km)</strong></label><br>
-
-
-    <input id="kyori" type="text" name="kyori" required>
-
+    <input id="kyori" type="number" step="0.01" name="distance" value="{{$data->distance}}" required>
     @error('kyori')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -55,11 +44,11 @@
     <label for="time"><strong class="fo-si-32">運動時間</strong></label><br>
 
     <div class="textbox">
-        <input id="hh" type="text" class="ma-ri-24" name="hh" placeholder="hh" required> <span
+        <input id="hh" type="number" class="ma-ri-24" name="hh" placeholder="hh" value="{{$data->hh}}" required> <span
             class="ma-ri-24">:</span>
-        <input id="mm" type="text" class="ma-ri-24" name="mm" placeholder="mm" required> <span
+        <input id="mm" type="number" class="ma-ri-24" name="mm" placeholder="mm" value="{{$data->mm}}" required> <span
             class="ma-ri-24">:</span>
-        <input id="ss" type="text" class="ma-ri-24" name="ss" placeholder="ss" required>
+        <input id="ss" type="number" class="ma-ri-24" name="ss" placeholder="ss" value="{{$data->ss}}" required>
 
         @error('time')
     <span class="invalid-feedback" role="alert">
