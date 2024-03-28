@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\JoggingController;
 
 /*
@@ -19,6 +20,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('logout', [LoginController::class,'logout'])->name('logout');
 
 // ジョギング
 Route::controller(JoggingController::class)->group(function(){

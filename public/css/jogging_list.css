@@ -451,6 +451,7 @@ bottom: 9px;
     position: absolute;
     top: 7.5px;
     right: 10px;
+    object-fit: cover;
 }
 
 
