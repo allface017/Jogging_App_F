@@ -1,9 +1,9 @@
-@extends('layouts.mainapp')
+@extends('layouts.layout')
 
 @section('title','top')
 
 @section('header')
-    
+
 @endsection
 
 @section('content')
@@ -13,36 +13,43 @@
 <div class="form">
     <div class="nitizi-com">
         <p class="fo-si-32">日時</p>
-        <p id="nitizi-com"></p>
+        <p id="nitizi-com">{{$data->date}}</p>
     </div>
 
     <div class="kyori-com">
         <p class="fo-si-32">距離(km)</p>
-        <p id="kyori-com"></p>
+        <p id="kyori-com">{{$data->distance}}km</p>
     </div>
 
     <div class="runtime-com">
         <p class="fo-si-32">運動時間</p>
-        <p id="runtime-com"></p>
+        <p id="runtime-com">{{$data->time}}</p>
     </div>
 
     <div class="space-com">
         <p class="fo-si-32">運動場所</p>
         <div class="out-in-com">
-            <p id="out-com">外</p>
-            <p id="in-com">内</p>
+            <!-- <p id="out-com">外</p>
+            <p id="in-com">内</p> -->
+            {{$data->location}}
         </div>
     </div>
 
     <div class="jogging-img-com">
         <p class="fo-si-32">ジョギングコースの画像</p>
-        <img src="#" alt="ジョギングコースの画像" id="jogging-img-com">
+        <img src="{{asset($data->course)}}" alt="ジョギングコースの画像" id="jogging-img-com">
     </div>
 
     <div class="spot-com">
         <p class="fo-si-32">スポット</p>
         <ul>
-            <li>スポットA</li>
+            @foreach($spot_lists as $item)
+                @foreach($spots as $spot)
+                    @if($item->spots_id == $spot->id)
+                        <li>{{$spot->name}}</li>
+                    @endif
+                @endforeach
+            @endforeach
         </ul>
     </div>
 </div>
