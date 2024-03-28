@@ -13,7 +13,7 @@
     @csrf
     <div class="nitizi">
         <label for="nitizi"><strong class="fo-si-24">日時</strong></label><br>
-        <input id="nitizi" type="date" name="date" required>
+        <input id="nitizi" type="date" name="date" value="{{old('date')}}" required>
         @error('date')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -23,7 +23,7 @@
 
     <div class="kyori">
         <label for="kyori"><strong class="fo-si-24">距離(km)</strong></label><br>
-        <input id="kyori" type="number"  step="0.01" name="distance" required>
+        <input id="kyori" type="number"  step="0.01" name="distance" value="{{old('distance')}}"　required>
         @error('kyori')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -79,15 +79,16 @@
                 </span>
             @enderror
         </div>
+        <label for="newspot" class="fo-si-24"><strong>新規スポット登録</strong></label>
+        <p class="fo-si-10">新規で登録する場合はスポット名を入力してください。</p>
+        <input id="newspot" type="text" name="newspot"> <button type="button" class="delete">－</button><br>
+        <button type="button" class="add-btn"><strong>＋追加</strong></button><br>
     </div>
-    <label for="newspot" class="fo-si-24"><strong>新規スポット登録</strong></label>
-    <p class="fo-si-10">新規で登録する場合はスポット名を入力してください。</p>
-    <input id="newspot" type="text" name="newspot"> <button type="button" class="delete">－</button><br>
-    <button type="button" class="add-btn"><strong>＋追加</strong></button><br>
+    
 
     <input type="submit" class="register" value="登録">
 </form>
-    
+
 <script src="/js/add_checkbox.js"></script>
 @endsection
 
