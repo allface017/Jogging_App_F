@@ -3,11 +3,18 @@
 @section('title','top')
 
 @section('header')
-    
+<link rel="stylesheet" href="/css/jogging_list.css">
 @endsection
 
 @section('content')
 
+@foreach($data as $jog)
+{{$jog}}
+@endforeach
+<br>
+@foreach($spot_list as $item)
+{{$item}}
+@endforeach
 <form action="" method="post" class="form">
 
 
@@ -16,7 +23,7 @@
     <label for="nitizi"><strong class="fo-si-32">日時</strong></label><br>
 
 
-    <input id="nitizi" type="date" name="date" required>
+    <input id="nitizi" type="date" name="date" value="{{$data->date}}" required>
 
     @error('date')
     <span class="invalid-feedback" role="alert">

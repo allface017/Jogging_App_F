@@ -151,36 +151,23 @@ class JoggingController extends Controller
         $user = Auth::id();
         $spots = Spots::all();
         
-        $jogs = Jogs::where([['users_id',(int)$user],['deleteflg',0]])->get();
-        $data = array();
-        foreach($jogs as $jog){
-            $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
-            $items = [
-                'id'=>$jog->id,
-                'date'=>$jog->date,
-                'distance'=>$jog->distance,
-                'time'=>$jog->time,
-                'course'=>$jog->course,
-                'location'=>$jog->location,
-                'spot'=>$spot_list,
-            ];
-            array_push($data,$items);
-        }
-        foreach($jogs as $jog){
-            // $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
-            $spot_list = Spot_lists::with('spots')->where('jogs_id',$jog->id)->get();
-            $items = [
-                'id'=>$jog->id,
-                'date'=>$jog->date,
-                'distance'=>$jog->distance,
-                'time'=>$jog->time,
-                'course'=>$jog->course,
-                'location'=>$jog->location,
-                'spot'=>$spot_list,
-            ];
-            array_push($data,$items);
-        }
-        return view('jogging.jogging_edit',['jogs'=>$data,'spots'=>$spots]);
+        $jog = Jogs::where([['id',(int)$request->id],['users_id',(int)$user],['deleteflg',0]])->first();
+        $jog['date'] = date("Y-m-d", strtotime($jog->date));
+        $spot_list = Spot_lists::where('jogs_id',$request->id)->get();
+        // foreach($jogs as $jog){
+        //     $items = [
+        //         'id'=>$jog->id,
+        //         'date'=>$jog->date,
+        //         'distance'=>$jog->distance,
+        //         'time'=>$jog->time,
+        //         'course'=>$jog->course,
+        //         'location'=>$jog->location,
+        //         'spot'=>$spot_list,
+        //     ];
+        //     array_push($data,$items);
+        // }
+        dd($jog);
+        return view('jogging.jogging_edit',['data'=>$jog,'spot_list'=>$spot_list,'spots'=>$spots]);
     }
     public function jogging_update(Request $request){
         if($request->file('image') == null){
