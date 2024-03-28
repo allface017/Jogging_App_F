@@ -64,6 +64,7 @@ class JoggingController extends Controller
         $form['course'] = $image_path;
         $time = $form['hh'].':'.$form['mm'].':'.$form['ss'];
         $location = $form['location']=='外' ? 0 : 1;
+        // dd($form);
         $data = [
             'users_id' => (int)$user,
             'date' => $form['date'],
