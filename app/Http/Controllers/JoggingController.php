@@ -313,9 +313,17 @@ class JoggingController extends Controller
         // 場所の条件を追加
         if (!empty($form['location'])) {
             // 場所の情報を取得
-            $location = $form['location'];
+            if ($form['location'] == "外") {
+                $location = false;
+            } else {
+                $location = true;
+            }
             $jogs->where('location', $location);
-            $location = $form['location'] == "on" ? "外" : "内";
+            if ($form['location'] == "外") {
+                $location = "外";
+            } else {
+                $location = "内";
+            }
             $message .= "場所: {$location}, ";
         }
         
@@ -358,6 +366,7 @@ class JoggingController extends Controller
             'jogging' => $jogs,
             'spots' => $spots,
             'message' => $message,
+            'form' => $form,
         ]);
     }
 }

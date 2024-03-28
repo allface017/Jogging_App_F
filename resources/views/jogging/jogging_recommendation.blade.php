@@ -19,21 +19,23 @@
             <h3>距離</h3>
             <div class="min-bar">
                 <p>最小：<span id="min-distance-value">0</span>km</p>
-                <input type="range" name="min_distance" id="min-distance" onchange="updateMinValue()">
+                <input type="range" name="min_distance" id="min-distance" onchange="updateMinValue()" value="{{ $form['min_distance'] ?? '' }}">
             </div>
             <div class="max-bar">
                 <p>最大：<span id="max-distance-value">0</span>km</p>
-                <input type="range" name="max_distance" id="max-distance" onchange="updateMaxValue()">
+                <input type="range" name="max_distance" id="max-distance" onchange="updateMaxValue()" value="{{ $form['max_distance'] ?? '' }}">
             </div>
             <h3>場所</h3>
             <div class="recommendation-radio">
-                <input type="radio" name="location" checked>外
-                <input type="radio" name="location">内
+                <input type="radio" name="location" value="外" id="location_outside" {{ isset($form['location']) && $form['location'] == '外' ? 'checked' : '' }}>
+                <label for="location_outside">外</label>
+                <input type="radio" name="location" value="内" id="location_inside" {{ isset($form['location']) && $form['location'] == '内' ? 'checked' : '' }}>
+                <label for="location_inside">内</label>
             </div>
             <h3>スポット</h3>
             <div class="recommendation-check">            
                 @foreach($spots_list as $spots)
-                    <input type="checkbox" name="spots[]" value="{{$spots->id }}">{{ $spots->name }}
+                    <input type="checkbox" name="spots[]" value="{{$spots->id }}" {{ isset($form['spots']) && in_array($spots->id, $form['spots']) ? 'checked' : '' }}>{{ $spots->name }}
                 @endforeach
             </div>
             <input type="submit" name="送信" value="この条件で検索する">
