@@ -4,12 +4,7 @@
 @section('title','top')
 
 @section('header')
-<style>
-    .form{
-        margin:100px 0;
-    }
-    
-</style>
+<link rel="stylesheet" href="/css/jogging_list.css">
 @endsection
 
 
@@ -29,7 +24,7 @@
 
     <div class="kyori">
         <label for="kyori"><strong class="fo-si-32">距離(km)</strong></label><br>
-        <input id="kyori" type="text" name="kyori" step="0.01" value="{{old('distance')}}" required>
+        <input id="kyori" type="text" name="distance" step="0.01" value="{{old('distance')}}" required>
          @error('kyori')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -43,7 +38,6 @@
             <input id="hh" type="text" class="ma-ri-24" name="hh" placeholder="hh" required> <span class="ma-ri-24">:</span>
             <input id="mm" type="text" class="ma-ri-24" name="mm" placeholder="mm" required> <span class="ma-ri-24">:</span>
             <input id="ss" type="text" class="ma-ri-24" name="ss" placeholder="ss" required>
-            @error('time')
         </div>
     </div>
 
