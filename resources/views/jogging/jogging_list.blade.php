@@ -43,8 +43,16 @@
         <div class="search-menu flex">
             <a href="#" id="narrow-down" class="flex">  
                 <span class="material-symbols-outlined">page_info</span>
-                <p>絞り込み</p>
+                <!-- <p>絞り込み</p> -->
+                <p><button type="button" onclick="document.getElementById('ex-dialog-3').showModal()">絞り込み</button></p>
             </a>
+            <dialog id="ex-dialog-3" aria-labelledby="ex-dialog-3-title">
+            <form method="dialog">
+                <h3 id="ex-dialog-3-title">名前を入力</h3>
+                <p><label>名前: <input type="text" required></label></p>
+                <p><button type="submit">確定する</button></p>
+            </form>
+            </dialog>
             <a href="#" id="registration-order">登録順</a>
             <a href="#" id="">昇順</a>
         </div>
