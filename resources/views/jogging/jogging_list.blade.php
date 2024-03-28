@@ -83,30 +83,32 @@
         <div class="list-data">
         <ul>
             @foreach($jogs as $jog)
-                <li class="flex">
-                    <div class="date-div">
-                        <p>{{$jog['date']}}</p>
-                        <div class="date-icon">
-                            <span class="material-symbols-outlined">forest</span>
+                <li>
+                    <a href="#" class="flex">
+                        <div class="date-div">
+                            <p>{{$jog['date']}}</p>
+                            <div class="date-icon">
+                                <span class="material-symbols-outlined">forest</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="record-div">
-                        <div class="flex">
-                            <div class="flex"><p>{{$jog['distance']}}</p> <p>(距離)</p></div>
-                            <div class="flex"><p>{{$jog['time']}}</p><p>(運動時間)</p></div>
-                        </div>
-                        <ul class="spot-ul flex">
-                            <li class="spot-icon">  <span class="material-symbols-outlined">location_on</span></li>
-                            @foreach($jog['spot'] as $item_spot)
-                                @foreach($spots as $spot)
-                                    @if($item_spot['spots_id'] == $spot['id'])
-                                        <li>{{$spot['name']}}</li>
-                                    @endif
+                        <div class="record-div">
+                            <div class="flex">
+                                <div class="flex"><p>{{$jog['distance']}}</p> <p>(距離)</p></div>
+                                <div class="flex"><p>{{$jog['time']}}</p><p>(運動時間)</p></div>
+                            </div>
+                            <ul class="spot-ul flex">
+                                <li class="spot-icon">  <span class="material-symbols-outlined">location_on</span></li>
+                                @foreach($jog['spot'] as $item_spot)
+                                    @foreach($spots as $spot)
+                                        @if($item_spot['spots_id'] == $spot['id'])
+                                            <li>{{$spot['name']}}</li>
+                                        @endif
+                                    @endforeach
                                 @endforeach
-                            @endforeach
-                        </ul>
-                    </div>
-                    <img src="{{asset($jog['course'])}}" alt="jogging_img" class="list-img">
+                            </ul>
+                        </div>
+                        <img src="{{asset($jog['course'])}}" alt="jogging_img" class="list-img">
+                    </a>
                 </li>
             @endforeach
         </ul>
