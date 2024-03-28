@@ -397,6 +397,10 @@ bottom: 9px;
     z-index: 10;
 }
 
+.record-div{
+    width: 65%;
+}
+
 .record-div div+div:not(.spot-ul){
     margin-left: 20px;
 }
@@ -428,6 +432,7 @@ bottom: 9px;
     font-size: 10px;
     font-weight: bolder;
 }
+
 .spot-icon span{
     height: 10px;
     width: 20px;
@@ -453,6 +458,7 @@ bottom: 9px;
     position: absolute;
     top: 7.5px;
     right: 10px;
+    object-fit: cover;
 }
 
 
@@ -598,6 +604,7 @@ bottom: 9px;
     font-weight: bold;
 }
 
+
 .search-box form{
     border: 1px solid #000000;
     border-radius: 2%;
@@ -660,13 +667,13 @@ bottom: 9px;
 }
 .recommendation-check input[type=checkbox]{
     position: relative;
-    top: 3.5px;
+    top: 2.5px;
     margin-right: 3px;
     accent-color: #000000;
 }
 .recommendation-check label{
-    font-size: 10px;
-    margin-right: 5px;
+    font-size: 12px;
+    margin-right: 7px;
     font-weight: bold;
 }
 
@@ -701,13 +708,22 @@ bottom: 9px;
     bottom: 1px;
     right: 1px;
 }
+.search-result .spot-icon{
+    width: 100%;
+}
+
+.search-result .spot-icon p{
+    color: #000000;
+    position: relative;
+    bottom: 1px;
+}
 
 
 .search-result li:not(.spot-ul li){
     height: 120px;
 }
 .search-result .spot-ul{
-    width: 75%;
+    width: 100%;
 }
 .search-result .list-img{
     width: 19%;

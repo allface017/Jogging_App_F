@@ -19,69 +19,113 @@ class JoggingController extends Controller
         
         $jogs = Jogs::where([['users_id',(int)$user],['deleteflg',0]])->get();
         $data = array();
+        $all_sum = 0.0;
+        $all_sum_time = 0;
         foreach($jogs as $jog){
             $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
             $items = [
                 'id'=>$jog->id,
-                'date'=>$jog->date,
-                'distance'=>$jog->distance,
+                'date'=>date( "m/d", strtotime($jog->date)),
+                'distance'=>number_format($jog->distance,2),
                 'time'=>$jog->time,
                 'course'=>$jog->course,
                 'location'=>$jog->location,
                 'spot'=>$spot_list,
             ];
+            $all_sum += $jog->distance;
             array_push($data,$items);
         }
-            foreach($jogs as $jog){
-                // $spot_list = Spot_lists::where('jogs_id',$jog->id)->get();
-                $spot_list = Spot_lists::with('spots')->where('jogs_id',$jog->id)->get();
-                $items = [
-                    'id'=>$jog->id,
-                    'date'=>$jog->date,
-                    'distance'=>$jog->distance,
-                    'time'=>$jog->time,
-                    'course'=>$jog->course,
-                    'location'=>$jog->location,
-                    'spot'=>$spot_list,
-                ];
-                array_push($data,$items);
-            }
+        $today_y = now()->format('Y');
+        $today_m = now()->format('m');
+        $jogs_sum = Jogs::whereYear('date',$today_y)->whereMonth('date',$today_m)->where([['users_id',(int)$user],['deleteflg',0]])->get();
+        $month_sum = 0.0;
+        foreach($jogs_sum as $jog){
+            $month_sum += $jog->distance;
+        }
+        // dd($month_sum);
         
-        return view('jogging.jogging_list',['jogs'=>$data,'spots'=>$spots]);
+        return view('jogging.jogging_list',['jogs'=>$data,'spots'=>$spots,'all_sum'=>$all_sum,'month_sum'=>$month_sum]);
     }
     // ジョギングデータ登録
     public function jogging_add(){
-        // $spots = Spots::all();
-        // return view('jogging.jogging_add',['spots'=>$spots]);
-        return view('jogging.jogging_add');
+        $spots = Spots::all();
+        return view('jogging.jogging_add',['spots'=>$spots,]);
     }
     public function jogging_create(Request $request){
         $jogs = new Jogs;
-        $spots = new spots;
-        $form = $request->all();
-        unset($form['_token']);
-        $file_name = $request->file('image')->getClientOriginalName();
-        $request->file('image')->storeAs('public/img',$file_name);
-        $image_path = '/storage/img/'.$file_name;//画像のパスを作成
+        $spots = new Spots;
         
-
-        $form['course'] = $image_path;
+        unset($request['_token']);
+        $form = $request->all();
         $user = Auth::id();
-        $form['user_id'] = (int)$user;
-        $form['delete_flg'] = 0;
-        $jogs->fill($form)->save();
+        $file_name = $request->file('jogging')->getClientOriginalName();
+        $request->file('jogging')->storeAs('public/img',$file_name);
+        $image_path = '/storage/img/'.$file_name;//画像のパスを作成
+        $form['course'] = $image_path;
+        $time = $form['hh'].':'.$form['mm'].':'.$form['ss'];
+        $location = $form['location']=='外' ? 0 : 1;
+        $data = [
+            'users_id' => (int)$user,
+            'date' => $form['date'],
+            'distance' => $form['distance'],
+            'time' => $time,
+            'course' => $image_path,
+            'location' => $location,
+            'delete_flg' => 0,
+        ];
+        $jogs->fill($data)->save();
 
         $jog_id = Jogs::orderBy('id','desc')->first();
-        // スポットの設定
-        if($request->spots() != null || $request->newspots() != null){
-            foreach($request->newspots() as $spot){
-                $spots->jogs_id = $jog_id;
-                // スポットがidで渡されていた場合
-                $spots->spots_id = $spot;
-                $spots->save();
+        $spots_db = Spots::all();
+        if(is_array($form['spots'])){
+            foreach($form['spots'] as $spot){
+                foreach($spots_db as $spot_id){
+                    if($spot == $spot_id->name){
+                        $spots_id = $spot_id->id;
+                    }
+                }
+                $spot_date = [
+                    'jogs_id' => $jog_id->id,
+                    'spots_id' => $spots_id,
+                ];
+                $spot_lists = new Spot_lists;
+                $spot_lists->fill($spot_date)->save();
             }
+        }else{
+            foreach($spots_db as $spot_id){
+                if($spot == $spot_id->name){
+                    $spots_id = $spot_id->id;
+                }
+            }
+            $spot_date = [
+                'jogs_id' => $jog_id->id,
+                'spots_id' => $spots_id,
+            ];
+            $spot_lists->fill($spot_date)->save();
         }
-        return redirect('/jogging');
+        // スポットの設定
+        if($request->newspot != null){
+            $spots->name = $request->newspot;
+            $spots->save();
+            $spots_id = Spots::orderBy('id','desc')->first();
+            $spot_date = [
+                'jogs_id' => $jog_id->id,
+                'spots_id' => $spots_id->id,
+            ];
+            $spot_lists->fill($spot_date)->save();
+        }
+        
+        // return view('jogging.jogging_comfirm',['data'=>$spot_date]);
+        return redirect('/jogging/comfirm');
+    }
+    // ジョギングデータ登録結果
+    public function jogging_comfirm(){
+        $jog = Jogs::orderBy('id','desc')->first();
+        $jog['date'] = date("Y-m-d", strtotime($jog->date));
+        $jog['location'] = $jog->location == 0 ? '外' : '内';
+        $spot_lists = Spot_lists::where('jogs_id',$jog->id)->get();
+        $spots = Spots::all();
+        return view('jogging.jogging_comfirm',['data'=>$jog,'spot_lists'=>$spot_lists,'spots'=>$spots]);
     }
 
     //ジョギングデータ詳細
@@ -313,9 +357,17 @@ class JoggingController extends Controller
         // 場所の条件を追加
         if (!empty($form['location'])) {
             // 場所の情報を取得
-            $location = $form['location'];
+            if ($form['location'] == "外") {
+                $location = false;
+            } else {
+                $location = true;
+            }
             $jogs->where('location', $location);
-            $location = $form['location'] == "on" ? "外" : "内";
+            if ($form['location'] == "外") {
+                $location = "外";
+            } else {
+                $location = "内";
+            }
             $message .= "場所: {$location}, ";
         }
         
@@ -358,6 +410,7 @@ class JoggingController extends Controller
             'jogging' => $jogs,
             'spots' => $spots,
             'message' => $message,
+            'form' => $form,
         ]);
     }
 }
