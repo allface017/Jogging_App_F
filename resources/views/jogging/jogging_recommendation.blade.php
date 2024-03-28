@@ -27,14 +27,14 @@
             </div>
             <h3>場所</h3>
             <div class="recommendation-radio">
-                <input type="radio" name="location" checked>外
-                <input type="radio" name="location">内
+                <label><input type="radio" name="location" checked>外</label>
+                <label><input type="radio" name="location">内</label>
             </div>
             <h3>スポット</h3>
             <div class="recommendation-check">            
                 @foreach($spots_list as $spots)
-                    <input type="checkbox" name="spots[]" value="{{$spots->id }}">{{ $spots->name }}
-                @endforeach
+                <label><input type="checkbox" name="spots[]" value="{{$spots->id }}">{{ $spots->name }}</label>    
+                @endforeach 
             </div>
             <input type="submit" name="送信" value="この条件で検索する">
         </form>
@@ -62,7 +62,7 @@
                         <div class="flex"><p>{{ $jogs->time }}</p><p>(運動時間)</p></div>
                     </div>
                     <ul class="spot-ul flex">
-                        <li class="spot-icon">  <span class="material-symbols-outlined">location_on</span></li>
+                        <li class="spot-icon"><span class="material-symbols-outlined">location_on</span><p>経由したスポット</p></li>
                         @foreach($jogs->spots as $spot)
                             <li>{{ $spot->name }}</li>
                         @endforeach
