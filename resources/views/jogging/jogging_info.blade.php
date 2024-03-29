@@ -11,7 +11,7 @@
 
 @section('content')
 <div class="detail-div">
-        <a href="#" id="detail-edit">編集</a>
+        <a href="/jogging/edit?id={{$jog['id']}}" id="detail-edit">編集</a>
         <input type="checkbox" id="img-up-btn">
         <label for="img-up-btn" class="img-label">
             <div class="detail-img">
@@ -27,7 +27,7 @@
         </label>
      
       
-        <p class="detail-date">2024/03/24</p>
+        <p class="detail-date">{{$jog['date']}}</p>
         <div class="ditail-data flex">
             <div class="flex">
                 <p>距離</p>

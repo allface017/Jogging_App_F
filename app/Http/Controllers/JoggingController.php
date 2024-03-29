@@ -104,6 +104,7 @@ class JoggingController extends Controller
             ];
             $spot_lists->fill($spot_date)->save();
         }
+
         // スポットの設定
         if($request->newspot != null){
             $spots->name = $request->newspot;
@@ -159,6 +160,44 @@ class JoggingController extends Controller
 
 
     } 
+    // ジョギングデータ編集
+    public function jogging_edit(Request $request){
+        $jogs_id = $request->id;
+        $users_id = Auth::id();
+        $jogs = Jogs::where([['id',$jogs_id],['users_id',(int)$users_id],['deleteflg',0]])->first();
+        $jogs['date'] = date("Y-m-d", strtotime($jogs->date));
+        $date = explode(':',$jogs->time);
+        $jogs['hh'] = $date[0];
+        $jogs['mm'] = $date[1];
+        $jogs['ss'] = $date[2];
+        $spot_lists = array();
+        $spot_list_items = Spot_lists::where('jogs_id',$jogs->id)->get(['spots_id']);
+        foreach($spot_list_items as $spot_list_item){
+            array_push($spot_lists,$spot_list_item['spots_id']);
+        }
+        $spots = Spots::all();
+
+        return view('jogging.jogging_edit',['jog'=>$jogs,'spot_lists'=>$spot_lists,'spots'=>$spots]);
+    }
+    public function jogging_update(Request $request){
+        if($request->file('jogging') == null){
+            $items = Jogs::find($request->id);
+            $image_path = $items->course;
+        }else{
+            $file_name = $request->file('jogging')->getClientOriginalName();
+            $request->file('jogging')->storeAs('public/img',$file_name);
+            $image_path = '/storage/img/'.$file_name;//画像のパスを作成
+        }
+        $jogs = Jogs::find($request->id);
+        $form = $request->all();
+        $form['time'] = $form['hh'].':'.$form['mm'].':'.$form['ss'];
+        $form['location'] = $form['location']=='外' ? 0 : 1;
+        $form['image'] = $image_path;
+        unset($form['_token']);
+        $jogs->fill($form)->save();
+        $id = $request->id;
+        return redirect()->action([JoggingController::class, 'jogging_info'], ['id' => $id]);
+    }
 
     //目標設定表示
     public function target_index(){
