@@ -15,7 +15,7 @@
     @section('menubar')
     <header>
         @yield('header')
-        <h1>タイトル</h1>
+        <h1>@yield('header_name')</h1>
     </header>
 
     <div class="content">

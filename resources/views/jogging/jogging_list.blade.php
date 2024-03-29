@@ -6,8 +6,8 @@
 <link rel="stylesheet" href="/css/jogging_list.css">
 @endsection
 @section('header')
-
-    
+@parent
+    TOP
 @endsection
 
 @section('content')
