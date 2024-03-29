@@ -75,6 +75,9 @@ font-size: 10px;
 #ss {
     width: 90px;
     height: 25px;
+    color: black;
+}
+.runtime ::placeholder {
     color: #C4C4C4;
 }
 #spot {
@@ -210,6 +213,7 @@ bottom: 9px;
     display: block;
     position: relative;
     left: 80%;
+    width: 70px;
 }
 
 
@@ -262,11 +266,11 @@ bottom: 9px;
     border: #000000 1px solid;
     padding:  0 10px;
 }
-#find_check{
+#find_check , #find_check-close{
     display: none;
 }
 .find_check{
-    display: inline-block;
+    width: 100px;
     cursor: pointer;
     height: 20px;
     font-size: 10px;
@@ -276,26 +280,78 @@ bottom: 9px;
     padding:  1px 10px 0;
     margin-right: 10px;
 }
+.find_check span{
+    width: 20px;
+    margin: 0;
+}
+.find_check p{
+    width: 40px;
+    margin: 0;
+}
 .find_form{
     position: fixed;
-    top: 50px;
-    left: 100px;
+    top: 100px;
+    left: 5vw;
     background: #fff;
-    width: 80%;
+    width: 90vw;
     border: 1px solid #000;
-    padding: 10px 100px;
-    z-index: 10;
+    padding: 10px 10px;
+    z-index: 1000;
+    display: none;
+    animation: 0.5s fadeIn;
 }
 .find_form h3 {
     font-size: 20px;
 }
-#find_check:checked+label+.find_form{
+/* #find_check:checked+label+.find_form{
     display: none;
+} */
+#find_check:checked ~ .find_form{
+    display: block;
+} 
+#find_check:checked ~ .form-close{
+    display: block;
 }
+#find_check:checked ~ .close-bac-div{
+    display: block;
+}
+
+
 .search-menu a + a{
     margin-left: 10px;
 }
-.search-menu span{
+
+.form-close{
+    display: none;
+    position: fixed;
+    top:50px;
+    right: 20px;
+    z-index: 1000;
+    animation: 0.5s fadeIn;
+}    
+    
+.material-symbols-outlined{
+    font-size: 40px;
+}
+
+
+.close-bac-div{
+    width: 100vw;
+    height: 80vh;
+    background-color: #efecec;
+    opacity: 0.8;
+    position: fixed;
+    top: 40px;
+    left: 0;
+    pointer-events: none;
+    z-index: 500;
+    animation: 0.5s img-fadeIn;
+    display: none;
+}
+
+
+
+.search-menu span:not(.form-close span){
     font-size: 18px;
     margin-right: 10px;
     display: block;
