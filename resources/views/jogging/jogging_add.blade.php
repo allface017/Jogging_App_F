@@ -34,9 +34,9 @@
     <div class="runtime">
         <label for="time"><strong class="fo-si-24">運動時間</strong></label><br>
         <div class="textbox">
-            <input id="hh" type="text" class="ma-ri-5" name="hh" placeholder="hh" required> <span class="ma-ri-5">:</span>
-            <input id="mm" type="text" class="ma-ri-5" name="mm" placeholder="mm" required> <span class="ma-ri-5">:</span>
-            <input id="ss" type="text" class="ma-ri-5" name="ss" placeholder="ss" required>
+            <input id="hh" type="number" class="ma-ri-5" name="hh" placeholder="hh" required> <span class="ma-ri-5">:</span>
+            <input id="mm" type="number" class="ma-ri-5" name="mm" placeholder="mm" required> <span class="ma-ri-5">:</span>
+            <input id="ss" type="number" class="ma-ri-5" name="ss" placeholder="ss" required>
             @error('time')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

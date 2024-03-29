@@ -162,42 +162,41 @@ class JoggingController extends Controller
     } 
     // ジョギングデータ編集
     public function jogging_edit(Request $request){
-        $user = Auth::id();
+        $jogs_id = $request->id;
+        $users_id = Auth::id();
+        $jogs = Jogs::where([['id',$jogs_id],['users_id',(int)$users_id],['deleteflg',0]])->first();
+        $jogs['date'] = date("Y-m-d", strtotime($jogs->date));
+        $date = explode(':',$jogs->time);
+        $jogs['hh'] = $date[0];
+        $jogs['mm'] = $date[1];
+        $jogs['ss'] = $date[2];
+        $spot_lists = array();
+        $spot_list_items = Spot_lists::where('jogs_id',$jogs->id)->get(['spots_id']);
+        foreach($spot_list_items as $spot_list_item){
+            array_push($spot_lists,$spot_list_item['spots_id']);
+        }
         $spots = Spots::all();
-        
-        $jog = Jogs::where([['id',(int)$request->id],['users_id',(int)$user],['deleteflg',0]])->first();
-        $jog['date'] = date("Y-m-d", strtotime($jog->date));
-        $spot_list = Spot_lists::where('jogs_id',$request->id)->get();
-        // foreach($jogs as $jog){
-        //     $items = [
-        //         'id'=>$jog->id,
-        //         'date'=>$jog->date,
-        //         'distance'=>$jog->distance,
-        //         'time'=>$jog->time,
-        //         'course'=>$jog->course,
-        //         'location'=>$jog->location,
-        //         'spot'=>$spot_list,
-        //     ];
-        //     array_push($data,$items);
-        // }
-        dd($jog);
-        return view('jogging.jogging_edit',['data'=>$jog,'spot_list'=>$spot_list,'spots'=>$spots]);
+
+        return view('jogging.jogging_edit',['jog'=>$jogs,'spot_lists'=>$spot_lists,'spots'=>$spots]);
     }
     public function jogging_update(Request $request){
-        if($request->file('image') == null){
+        if($request->file('jogging') == null){
             $items = Jogs::find($request->id);
-            $image_path = $items->image;
+            $image_path = $items->course;
         }else{
-            $file_name = $request->file('image')->getClientOriginalName();
-            $request->file('image')->storeAs('public/img',$file_name);
+            $file_name = $request->file('jogging')->getClientOriginalName();
+            $request->file('jogging')->storeAs('public/img',$file_name);
             $image_path = '/storage/img/'.$file_name;//画像のパスを作成
         }
         $jogs = Jogs::find($request->id);
         $form = $request->all();
+        $form['time'] = $form['hh'].':'.$form['mm'].':'.$form['ss'];
+        $form['location'] = $form['location']=='外' ? 0 : 1;
         $form['image'] = $image_path;
         unset($form['_token']);
         $jogs->fill($form)->save();
-        return redirect('/home');
+        $id = $request->id;
+        return redirect()->action([JoggingController::class, 'jogging_info'], ['id' => $id]);
     }
 
     //目標設定表示

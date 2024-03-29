@@ -8,18 +8,12 @@
 
 @section('content')
 
-@foreach($data as $jog)
-{{$jog}}
-@endforeach
-<br>
-@foreach($spot_list as $item)
-{{$item}}
-@endforeach
-<form action="" method="post" class="form">
-
+<form action="/jogging/edit" method="post" class="form" enctype="multipart/form-data">
+@csrf
+<input type="hidden" name="id" value="{{$jog['id']}}">
 <div class="nitizi">
     <label for="nitizi"><strong class="fo-si-32">日時</strong></label><br>
-    <input id="nitizi" type="date" name="date" value="{{$data->date}}" required>
+    <input id="nitizi" type="date" name="date" value="{{$jog['date']}}" required>
     @error('date')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -29,7 +23,7 @@
 
 <div class="kyori">
     <label for="kyori"><strong class="fo-si-32">距離(km)</strong></label><br>
-    <input id="kyori" type="number" step="0.01" name="distance" value="{{$data->distance}}" required>
+    <input id="kyori" type="number" step="0.01" name="distance" value="{{$jog['distance']}}" required>
     @error('kyori')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -44,17 +38,17 @@
     <label for="time"><strong class="fo-si-32">運動時間</strong></label><br>
 
     <div class="textbox">
-        <input id="hh" type="number" class="ma-ri-24" name="hh" placeholder="hh" value="{{$data->hh}}" required> <span
+        <input id="hh" type="number" class="ma-ri-24" name="hh" placeholder="hh" value="{{$jog['hh']}}" required> <span
             class="ma-ri-24">:</span>
-        <input id="mm" type="number" class="ma-ri-24" name="mm" placeholder="mm" value="{{$data->mm}}" required> <span
+        <input id="mm" type="number" class="ma-ri-24" name="mm" placeholder="mm" value="{{$jog['mm']}}" required> <span
             class="ma-ri-24">:</span>
-        <input id="ss" type="number" class="ma-ri-24" name="ss" placeholder="ss" value="{{$data->ss}}" required>
+        <input id="ss" type="number" class="ma-ri-24" name="ss" placeholder="ss" value="{{$jog['ss']}}" required>
 
         @error('time')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-    @enderror
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 </div>
 
@@ -64,15 +58,17 @@
     <label for="place"><strong class="fo-si-32">運動場所</strong></label><br>
 
     <div class="radio-space">
-
-        <input type="radio" name="s2" id="out" value="外" checked="">
-
-        <label for="out" class="switch-out ">外</label>
-
-        <input type="radio" name="s2" id="in" value="内">
-
-        <label for="in" class="switch-in ">内</label>
-
+        @if($jog['location'] == 0)
+            <input type="radio" name="location" id="out" value="外" checked>
+            <label for="out" class="switch-out ">外</label>
+            <input type="radio" name="location" id="in" value="内">
+            <label for="in" class="switch-in ">内</label>
+        @else
+            <input type="radio" name="location" id="out" value="外">
+            <label for="out" class="switch-out ">外</label>
+            <input type="radio" name="location" id="in" value="内" checked>
+            <label for="in" class="switch-in ">内</label>
+        @endif
     </div>
 
 </div>
@@ -101,7 +97,13 @@
 
     <div>
         <ul>
-            <li>スポットA</li>
+            @foreach($spots as $spot)
+                    @if(in_array($spot->id, $spot_lists))
+                    <label><input type="checkbox" name="spots[]" value="{{$spot->name}}" id="check{{$spot->id}}" checked>{{$spot->name}}</label>
+                    @else
+                    <label><input type="checkbox" name="spots[]" value="{{$spot->name}}" id="check{{$spot->id}}">{{$spot->name}}</label>
+                    @endif
+            @endforeach
         </ul>
 
         <p>検索したいキーワードを入力してください。</p>
@@ -109,10 +111,10 @@
 
 
         @error('spot')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-    @enderror
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 
 
