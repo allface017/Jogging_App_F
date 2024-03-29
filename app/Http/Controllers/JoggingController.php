@@ -130,6 +130,10 @@ class JoggingController extends Controller
     }
 
     //ジョギングデータ詳細
+    public function jogging_info(){
+        return view('jogging.jogging_info');
+    }
+
     public function jogging_Details(Request $request){
         $jogs_id = $request->jogs_id;
         $users_id = Auth::id();
