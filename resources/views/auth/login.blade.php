@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             
-                <p>ログイン</p>
+                <p class="top-login">ログイン</p>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -43,8 +43,8 @@
                                            
 
                         <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-8 offset-md-4 te-ce">
+                                <button type="submit" class="login-btm  ma-top">
                                     {{ __('ログイン') }}
                                 </button>
 
