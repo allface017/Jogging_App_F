@@ -12,9 +12,21 @@
 @section('content')
 <div class="detail-div">
         <a href="#" id="detail-edit">編集</a>
-        <div class="detail-img">
-            <img src="#">
-        </div>
+        <input type="checkbox" id="img-up-btn">
+        <label for="img-up-btn" class="img-label">
+            <div class="detail-img">
+                <img src="#">
+                <span class="material-symbols-outlined">add_circle</span>
+            </div>
+        </label> 
+        <div class="img-up-div">
+            <img src="">
+        </div>   
+        <label for="img-up-btn" class="img-close">
+            <span class="material-symbols-outlined">close</span>
+        </label>
+     
+      
         <p class="detail-date">2024/03/24</p>
         <div class="ditail-data flex">
             <div class="flex">
