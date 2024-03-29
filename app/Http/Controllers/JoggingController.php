@@ -156,22 +156,33 @@ class JoggingController extends Controller
         $user = Auth::id();
         //全体走行距離を取得
         $total_distance = Jogs::where('users_id',$user)->sum('distance');
-        $user_id = Auth::id();
+        $message = "";
+
+        $target = Targets::where('users_id', $user)->where('achieveflg', false)->where('deleteflg', false)->first();
+
+        if($total_distance== 0 || $target === null) { 
+        $total_distance = 0;
+        $target = "";
+        $target_list = Targets::where('users_id',$user)->where('deleteflg',false)->get(); 
+        $message = "現在、目標が設定されていません。";
+        return view('jogging.target_sett',['total' => $total_distance,'target' =>$target,'target_list'=>$target_list,'message' => $message]);
+        }
         // 達成されていない目標を更新
-        $this->updateTargetAchievement($user_id);
+        $message = $this->updateTargetAchievement($user);
         // 再度達成されていない目標を取得
-        $target = Targets::where('users_id', $user_id)
+        $target = Targets::where('users_id', $user)
         ->where('achieveflg', false)
         ->where('deleteflg', false)
         ->first();
         $target_list = Targets::where('users_id',$user)->where('deleteflg',false)->get();   
 
-        return view('jogging.target_sett',['total' => $total_distance,'target' =>$target,'target_list'=>$target_list]);
+        return view('jogging.target_sett',['total' => $total_distance,'target' =>$target,'target_list'=>$target_list,'message' => $message]);
         
     }
 
     //目的追加
     public function target_add(Request $request){
+        $user = Auth::id();
         $target = new Targets;
         $target->users_id = Auth::id();
         $target->target_distance = $request->target_distance;
@@ -182,7 +193,19 @@ class JoggingController extends Controller
         $target->achieveflg = false;
         $target->save();
 
-        return redirect('/jogging/target');
+        // 達成されていない目標を更新
+        $message = $this->updateTargetAchievement($user);
+        // 再度達成されていない目標を取得
+        $target = Targets::where('users_id', $user)
+        ->where('achieveflg', false)
+        ->where('deleteflg', false)
+        ->first();
+
+        $total_distance = Jogs::where('users_id',$user)->sum('distance');
+
+        $target_list = Targets::where('users_id',$user)->where('deleteflg',false)->get();   
+
+        return view('jogging.target_sett',['total' => $total_distance,'target' =>$target,'target_list'=>$target_list,'message' => $message]);
     }
 
     //目標を更新
@@ -198,6 +221,9 @@ class JoggingController extends Controller
         if ($target && $total_distance >= $target->target_distance) {
             $target->achieveflg = true;
             $target->save();
+            return "おめでとうございます！目標を達成しました。".$target->reward."が受け取ることができます";
+        } else {
+            return $target->reward."が出来るように頑張りましょう！！";
         }
     }
     //スポット編集画面へ
