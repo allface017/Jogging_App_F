@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="/css/jogging_list.css">
 @endsection
 @section('header')
-
-    
+@parent
+    ジョギングデータ詳細
 @endsection
 
 @section('content')

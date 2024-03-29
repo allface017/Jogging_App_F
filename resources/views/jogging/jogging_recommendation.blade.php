@@ -6,7 +6,8 @@
 <script async src="/js/jogging_recommendation.js"></script>
 @endsection
 @section('header')
-
+@parent
+    目標設定
     
 @endsection
 

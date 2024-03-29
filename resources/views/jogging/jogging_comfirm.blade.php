@@ -4,6 +4,8 @@
 
 @section('header')
 <link rel="stylesheet" href="/css/jogging_list.css">
+@parent
+    ジョギングデータ登録結果
 @endsection
 
 @section('content')
