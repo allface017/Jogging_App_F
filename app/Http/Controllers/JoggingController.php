@@ -49,7 +49,7 @@ class JoggingController extends Controller
     // ジョギングデータ登録
     public function jogging_add(){
         $spots = Spots::all();
-        return view('jogging.jogging_add',['spots'=>$spots,]);
+        return view('jogging.jogging_add',['spots'=>$spots]);
     }
     public function jogging_create(Request $request){
         $jogs = new Jogs;
@@ -131,6 +131,19 @@ class JoggingController extends Controller
     }
 
     //ジョギングデータ詳細
+    public function jogging_info(Request $request){
+        $jogs_id = $request->id;
+        $users_id = Auth::id();
+        $jogs = Jogs::where([['id',$jogs_id],['users_id',(int)$users_id],['deleteflg',0]])->first();
+        $jogs['date'] = date("Y-m-d", strtotime($jogs->date));
+        $jogs['location'] = $jogs->location == 0 ? '外' : '内';
+        $spot_lists = Spot_lists::where('jogs_id',$jogs->id)->get();
+        $spots = Spots::all();
+        // dd($spot_lists);
+
+        return view('jogging.jogging_info',['jog'=>$jogs,'spot_lists'=>$spot_lists,'spots'=>$spots]);
+    }
+
     public function jogging_Details(Request $request){
         $jogs_id = $request->jogs_id;
         $users_id = Auth::id();
@@ -336,7 +349,7 @@ class JoggingController extends Controller
         $user_id = Auth::id();
 
         // ログインユーザーのジョギングデータを取得
-        $jogs = Jogs::where('users_id', $user_id)->get();
+        $jogs = Jogs::where([['users_id',(int)$user_id],['deleteflg',0]])->get();
 
         // ランダムな件数を決定するための最大件数を設定
         $max_random_count = 5;
@@ -359,6 +372,10 @@ class JoggingController extends Controller
         // スポットテーブルからジョギングデータに関連するスポットを取得
         $spots = Spots::whereIn('id', $spots_ids)->get();
 
+        foreach ($jogs as $jog) {
+            $jog->date = date('m/d', strtotime($jog->date));
+        }   
+
         // ビューにデータを渡して表示
         return view('jogging.jogging_recommendation', [
             'spots_list' => $spot_list,
@@ -376,7 +393,7 @@ class JoggingController extends Controller
         $user_id = Auth::id();
 
         // ジョギングデータを取得するクエリを作成
-        $jogs = Jogs::where('users_id', $user_id);
+        $jogs = Jogs::where([['users_id',(int)$user_id],['deleteflg',0]]);
 
         $message = "検索条件：";
         // 最小距離の条件を追加
@@ -444,6 +461,10 @@ class JoggingController extends Controller
         if ($jogs->isEmpty()) {
             $message = '条件に一致するジョギングデータはありませんでした。';
         } 
+
+        foreach ($jogs as $jog) {
+            $jog->date = date('m/d', strtotime($jog->date));
+        }
         
         // ビューにデータを渡して表示
         return view('jogging.jogging_recommendation', [

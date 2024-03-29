@@ -19,11 +19,11 @@
             <h3>距離</h3>
             <div class="min-bar">
                 <p>最小：<span id="min-distance-value">0</span>km</p>
-                <input type="range" name="min_distance" id="min-distance" onchange="updateMinValue()" value="{{ $form['min_distance'] ?? '' }}">
+                <input type="range" min="0" name="min_distance" id="min-distance" onchange="updateMinValue()" value="{{ $form['min_distance'] ?? 0 }}">
             </div>
             <div class="max-bar">
                 <p>最大：<span id="max-distance-value">0</span>km</p>
-                <input type="range" name="max_distance" id="max-distance" onchange="updateMaxValue()" value="{{ $form['max_distance'] ?? '' }}">
+                <input type="range"  name="max_distance" id="max-distance" onchange="updateMaxValue()" value="{{ $form['max_distance'] ?? 50 }}">
             </div>
             <h3>場所</h3>
             <div class="recommendation-radio">
@@ -53,7 +53,7 @@
                 @foreach($jogging as $jogs)
             <li class="flex">
                 <div class="date-div">
-                    <p>{{ $jogs ->date}}</p>
+                    <p>{{ $jogs->date}}</p>
                     <div class="date-icon">
                         <span class="material-symbols-outlined">forest</span>
                     </div>
@@ -70,7 +70,7 @@
                         @endforeach
                     </ul>
                 </div>
-                <div class="list-img" src="{{ $jogs->course}}"></div>
+                <img src="{{asset($jogs->course)}}" alt="jogging_img" class="list-img">
             </li>
             @endforeach
         </ul>
