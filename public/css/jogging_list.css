@@ -247,10 +247,36 @@ bottom: 9px;
     border: #000000 1px solid;
     padding:  0 10px;
 }
-.search-menu a:not(#narrow-down){
-    display: block;
+#find_check{
+    display: none;
 }
-
+.find_check{
+    display: inline-block;
+    cursor: pointer;
+    height: 20px;
+    font-size: 10px;
+    color: #000000;
+    font-weight: bold;
+    border: #000000 1px solid;
+    padding:  1px 10px 0;
+    margin-right: 10px;
+}
+.find_form{
+    position: fixed;
+    top: 50px;
+    left: 100px;
+    background: #fff;
+    width: 80%;
+    border: 1px solid #000;
+    padding: 10px 100px;
+    z-index: 10;
+}
+.find_form h3 {
+    font-size: 20px;
+}
+#find_check:checked+label+.find_form{
+    display: none;
+}
 .search-menu a + a{
     margin-left: 10px;
 }
@@ -259,7 +285,7 @@ bottom: 9px;
     margin-right: 10px;
     display: block;
 }
-.search-menu a{
+.search-menu a,.search-menu #narrow-down .text{
     font-size: 10px;
     margin: 0;
     padding-top: 1px;
