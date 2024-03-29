@@ -75,6 +75,9 @@ font-size: 10px;
 #ss {
     width: 90px;
     height: 25px;
+    color: black;
+}
+.runtime ::placeholder {
     color: #C4C4C4;
 }
 #spot {

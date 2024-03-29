@@ -23,7 +23,7 @@
 
     <div class="kyori">
         <label for="kyori"><strong class="fo-si-24">距離(km)</strong></label><br>
-        <input id="kyori" type="number"  step="0.01" name="distance" value="{{old('distance')}}"　required>
+        <input id="kyori" type="number"  step="0.01" name="distance" value="{{old('distance')}}" required>
         @error('kyori')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
