@@ -113,7 +113,7 @@
         <ul>
             @foreach($jogs as $jog)
                 <li>
-                    <a href="#" class="flex">
+                    <a href="/jogging/info?id={{$jog['id']}}" class="flex">
                         <div class="date-div">
                             <p>{{$jog['date']}}</p>
                             <div class="date-icon">

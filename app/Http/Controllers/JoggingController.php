@@ -130,8 +130,17 @@ class JoggingController extends Controller
     }
 
     //ジョギングデータ詳細
-    public function jogging_info(){
-        return view('jogging.jogging_info');
+    public function jogging_info(Request $request){
+        $jogs_id = $request->id;
+        $users_id = Auth::id();
+        $jogs = Jogs::where([['id',$jogs_id],['users_id',(int)$users_id],['deleteflg',0]])->first();
+        $jogs['date'] = date("Y-m-d", strtotime($jogs->date));
+        $jogs['location'] = $jogs->location == 0 ? '外' : '内';
+        $spot_lists = Spot_lists::where('jogs_id',$jogs->id)->get();
+        $spots = Spots::all();
+        // dd($spot_lists);
+
+        return view('jogging.jogging_info',['jog'=>$jogs,'spot_lists'=>$spot_lists,'spots'=>$spots]);
     }
 
     public function jogging_Details(Request $request){
