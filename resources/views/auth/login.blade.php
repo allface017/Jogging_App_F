@@ -50,7 +50,7 @@
 
                                 @if (Route::has('password.request'))
                                 <br>
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link" href="{{ route('register') }}">
                                         {{ __('新規登録はこちら') }}
                                     </a><br>
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
