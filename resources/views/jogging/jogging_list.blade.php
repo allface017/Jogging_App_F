@@ -22,7 +22,7 @@
         <div class="gauge-bar flex">
             <div class="left-circle"></div>
                 <div class="gauge-div">
-                    <!-- ここのstyleでゲージを調整 -->
+     
                     <div class="gauge" style=" width: 50%;"></div>
                 </div>
             <div class="right-circle"></div>
@@ -41,14 +41,15 @@
         </div>
 
         <div class="search-menu flex">
-            <!-- <a href="#" id="narrow-down" class="flex">  
-                <span class="material-symbols-outlined">page_info</span>
-                <p>絞り込み</p>
-            </a> -->
-            <input type="checkbox" id="find_check" checked>
-            <label class="find_check" for="find_check">
-                絞り込み
+            <label class="find_check flex" for="find_check">
+            <span class="material-symbols-outlined">page_info</span>
+            <p>絞り込み</p>
             </label>
+            <input type="checkbox" id="find_check" class="check-btn">
+            <label for="find_check" class="form-close">
+            <span class="material-symbols-outlined">close</span>
+            </label>
+            <div class="close-bac-div"></div>
             <form action="#" method="post" class="find_form">
                 <h3 id="ex-dialog-3-title">日付</h3>
                 <label><input type="radio" name="date" value="年月" checked="">年月</label>
