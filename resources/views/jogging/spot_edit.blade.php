@@ -1,6 +1,19 @@
-    @if ($add_message)
+@extends('layouts.layout')
+
+@section('title','Spot_edit')
+@section('head')
+<link rel="stylesheet" href="/css/jogging_list.css">
+<script async src="/js/jogging_recommendation.js"></script>
+@endsection
+@section('header')
+
+    
+@endsection
+
+@section('content')
+@if ($add_message)
         <h1>{{ $add_message }}</h1>
-    @endif
+@endif
     
 <h1>新規スポット登録</h1>
 <p>新規で登録する場合はスポット名を入力してください。</p>
@@ -50,3 +63,9 @@
     @endforeach 
         </tbody>
     </table>
+
+@endsection
+
+@section('footer')
+<!--  -->
+@endsection
